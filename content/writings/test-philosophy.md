@@ -1,7 +1,7 @@
 ---
 title: "部誌の巻頭言"
 date: 2026-05-08T23:27:41+09:00
-draft: true
+draft: false
 
 # Aphelis流 出典項目
 author: ""
