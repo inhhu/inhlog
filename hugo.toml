@@ -55,3 +55,6 @@ theme = "explore"
     name = "Contact"
     url = "/contact/"
     weight = 30
+
+[markup.goldmark.renderer]
+  hardWraps = true    

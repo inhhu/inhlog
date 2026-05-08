@@ -2,27 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/explore/categories/</loc>
+    <loc>http://localhost:1313/inhlog/categories/</loc>
     <lastmod>2026-05-08T23:27:41+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/</loc>
+    <loc>http://localhost:1313/inhlog/</loc>
     <lastmod>2026-05-08T23:27:41+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/categories/philosophy/</loc>
+    <loc>http://localhost:1313/inhlog/writings/</loc>
     <lastmod>2026-05-08T23:27:41+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/writings/</loc>
+    <loc>http://localhost:1313/inhlog/categories/%E3%83%89%E3%82%A4%E3%83%84/</loc>
     <lastmod>2026-05-08T23:27:41+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/writings/test-philosophy/</loc>
+    <loc>http://localhost:1313/inhlog/categories/%E6%89%B9%E8%A9%95/</loc>
     <lastmod>2026-05-08T23:27:41+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/contact/</loc>
+    <loc>http://localhost:1313/inhlog/writings/test-philosophy/</loc>
+    <lastmod>2026-05-08T23:27:41+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/inhlog/contact/</loc>
     <lastmod>2026-05-08T22:38:25+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/about/</loc>
+    <loc>http://localhost:1313/inhlog/about/</loc>
     <lastmod>2026-05-08T22:38:17+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/tags/</loc>
+    <loc>http://localhost:1313/inhlog/tags/</loc>
   </url>
 </urlset>
