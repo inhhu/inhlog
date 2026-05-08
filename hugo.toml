@@ -1,0 +1,57 @@
+baseURL = "https://inhhu.github.io/inhlog/"
+locale = "ja-jp"
+title = "Inhlog"
+theme = "explore"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  author = "inhhh"
+  description = "A personal digital archive."
+  tagline = ""
+
+# --- スタイル設定 ---
+  [params.style]
+    fontPreset = "serif" 
+    # 青っぽさを消すため、より深い黒やグレーに固定します
+    primary = "#1a1a1a"   # 本文や見出しの色
+    accent  = "#054867"   # リンクのホバー時や目次の装飾、タグなどの色
+    containerMaxWidth = "900px"
+    maxWidthCh = 65
+
+  # --- UI設定 ---
+  [params.ui]
+    stickyHeader = false
+    showSearch = true
+    searchEngine = "fuse"
+
+  # --- リスト・セクション設定（ここが重要） ---
+  [params.list]
+    listView = "compact"
+    showExcerpt = false
+    showSectionBadge = false
+    # 書き換え：この階層に含めることで確実に認識させます
+    mainSections = ["writings"] 
+
+# --- メニュー設定 ---
+[menu]
+  [[menu.main]]
+    identifier = "writings"
+    name = "Writings"
+    url = "/writings/"
+    weight = 10
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 20
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact/"
+    weight = 30

@@ -1,0 +1,51 @@
+
+/* --- フォント強制変更（Finn Brunton Style） --- */
+body, html {
+    /* 小塚明朝 Pr6N の正式な指定名 */
+    font-family: "kozuka-mincho-pr6n", serif !important;
+    
+    /* 洗練された見た目にするための調整 */
+    font-weight: 400; /* 標準的な太さ */
+    line-height: 1.8;  /* 行間を広げて読みやすく */
+    letter-spacing: 0.03em; /* わずかに文字間を空ける */
+}
+
+h1, h2, h3, h4 {
+    font-family: inherit; // 見出しもセリフ体を継承
+    font-weight: 700;
+}
+
+a {
+    color: #1a1a1a;
+    text-decoration: underline; // 下線のみにするのがBrunton流
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.6; // マウスを乗せた時だけ少し薄くする
+    }
+}
+
+.archive-list {
+    ul li {
+        font-family: "kozuka-mincho-pr6n", serif;
+        padding: 8px 0;
+        
+        a {
+            color: #1a1a1a !important;
+            text-decoration: none !important; // リストでは下線を消すと綺麗
+            &:hover {
+                text-decoration: underline !important;
+            }
+        }
+    }
+}
+
+.text-right {
+    display: block !important;
+    text-align: right !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+

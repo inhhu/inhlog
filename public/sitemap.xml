@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://localhost:1313/explore/categories/</loc>
+    <lastmod>2026-05-08T23:27:41+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/explore/</loc>
+    <lastmod>2026-05-08T23:27:41+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/explore/categories/philosophy/</loc>
+    <lastmod>2026-05-08T23:27:41+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/explore/writings/</loc>
+    <lastmod>2026-05-08T23:27:41+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/explore/writings/test-philosophy/</loc>
+    <lastmod>2026-05-08T23:27:41+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/explore/contact/</loc>
+    <lastmod>2026-05-08T22:38:25+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/explore/about/</loc>
+    <lastmod>2026-05-08T22:38:17+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/explore/tags/</loc>
+  </url>
+</urlset>

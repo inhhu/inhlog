@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Inhlog</title>
+    <link>http://localhost:1313/explore/categories/</link>
+    <description>Recent content in Categories on Inhlog</description>
+    <generator>Hugo</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Fri, 08 May 2026 23:27:41 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/explore/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>批評</title>
+      <link>http://localhost:1313/explore/categories/%E6%89%B9%E8%A9%95/</link>
+      <pubDate>Fri, 08 May 2026 23:27:41 +0900</pubDate>
+      <guid>http://localhost:1313/explore/categories/%E6%89%B9%E8%A9%95/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Philosophy</title>
+      <link>http://localhost:1313/explore/categories/philosophy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/explore/categories/philosophy/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

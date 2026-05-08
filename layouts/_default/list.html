@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="archive-list">
+  <h1>{{ .Title }}</h1>
+  <ul style="list-style: none; padding: 0;">
+    {{ range .Pages.ByDate.Reverse }}
+    <li style="margin-bottom: 0.5em; border-bottom: 1px dotted #ddd; display: flex; justify-content: space-between;">
+      <div>
+        <span style="font-feature-settings: 'tnum'; margin-right: 1em; color: #666;">
+          [{{ .Date.Format "2006" }}]
+        </span>
+        <a href="{{ .RelPermalink }}" style="text-decoration: none; font-weight: 500;">
+          {{ .Title }}
+        </a>
+      </div>
+      
+      <div style="font-size: 0.85em; color: #888;">
+        {{ with .Params.categories }}
+          {{ range . }}
+            <span style="margin-left: 0.5em;">#{{ . }}</span>
+          {{ end }}
+        {{ end }}
+      </div>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

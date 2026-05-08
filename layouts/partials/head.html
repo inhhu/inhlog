@@ -1,0 +1,150 @@
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'psr6rlj',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
+<link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
+<style>
+  /* サイト全体のリンクとアクセントカラーを強制上書き */
+  :root {
+    --primary: #1a1a1a !important;
+    --accent: #555555 !important;
+  }
+  
+  /* すべてのリンク、目次、ホバー時の青を無効化 */
+  a, .archive-list a, .post-title a, .menu-link {
+    color: var(--primary) !important;
+    text-decoration-color: #ccc !important;
+  }
+
+  a:hover {
+    color: var(--accent) !important;
+    text-decoration-color: var(--accent) !important;
+  }
+
+  /* ダークモード時の強制上書き */
+  [data-theme='dark'] a, 
+  [data-theme='dark'] .archive-list a {
+    color: #e0e0e0 !important;
+  }
+
+  /* テキスト選択時のハイライト（青）を殺す */
+  ::selection {
+    background-color: #444 !important;
+    color: #fff !important;
+  }
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}</title>
+
+{{ with .Description | default .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+{{ with .Params.author | default .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+<link rel="canonical" href="{{ .Permalink }}">
+{{ with .OutputFormats.Get "rss" }}
+  {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}
+
+<!-- Favicon -->
+<!--<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ "manifest.webmanifest" | relURL }}">-->
+
+<!-- SEO -->
+{{ partial "seo/opengraph.html" . }}
+{{ partial "seo/schema.html" . }}
+{{ if ne .Kind "page" }}
+  {{ with .Paginator }}
+    {{ if .HasPrev }}<link rel="prev" href="{{ .Prev.URL }}">{{ end }}
+    {{ if .HasNext }}<link rel="next" href="{{ .Next.URL }}">{{ end }}
+  {{ end }}
+{{ end }}
+
+<!-- Preload fonts -->
+{{ $fontPreset := .Site.Params.style.fontPreset | default "inter" }}
+{{ if eq $fontPreset "google-sans" }}
+<link rel="preload" href="{{ "fonts/google-sans-flex-regular.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/google-sans-flex-bold.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/google-sans-code-regular.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{ else }}
+<link rel="preload" href="{{ "fonts/inter-regular.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/inter-bold.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/jetbrains-mono-regular.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{ end }}
+
+<!-- CSS -->
+{{ $cssOptions := (dict "targetPath" "css/style.css" "outputStyle" "compressed") }}
+{{ with resources.Get "css/main.scss" }}
+  {{ $style := . | resources.ExecuteAsTemplate "style.main.scss" $ | css.Sass $cssOptions | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+{{ end }}
+
+{{ with resources.Get "scss/custom.scss" }}
+  {{ $custom := . | css.Sass | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $custom.RelPermalink }}" integrity="{{ $custom.Data.Integrity }}">
+{{ else }}
+  {{ with resources.Get "css/custom.css" }}
+    {{ $custom := . | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $custom.RelPermalink }}" integrity="{{ $custom.Data.Integrity }}">
+  {{ end }}
+{{ end }}
+
+<!-- Inline theme init to prevent flash of white on dark mode -->
+<script>
+  (function() {
+    try {
+      // 1. まず「保存された設定」があるか確認
+      var savedTheme = localStorage.getItem('theme');
+      
+      // 2. 初回アクセス（savedThemeが空）なら、強制的に 'light' にする
+      if (!savedTheme) {
+        savedTheme = 'light';
+        localStorage.setItem('theme', 'light');
+      }
+      
+      // 3. 画面に反映
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } catch (e) {}
+  })();
+</script>
+
+<style>
+  /* 1. マウスを載せた時の青を抹殺 */
+  a:hover, 
+  .menu-link:hover, 
+  .archive-list a:hover, 
+  .post-title a:hover {
+    color: #555555 !important; /* hugo.tomlのaccentと同じ色 */
+    text-decoration: underline !important; /* 色を変える代わりに下線を出す */
+    background: none !important; /* 背景が青くなるタイプも防止 */
+  }
+
+  /* 2. 検索ボタンやアイコンの青も防止 */
+  button:hover, 
+  svg:hover,
+  #search-input:focus {
+    border-color: #555555 !important;
+    fill: #555555 !important;
+    outline: none !important;
+  }
+
+  /* 3. ダークモード時も青くさせない */
+  [data-theme='dark'] a:hover {
+    color: #bbbbbb !important; /* ダークモード用の明るいグレー */
+  }
+</style>
+<style>
+  :root {
+    --accent: #555555 !important;
+    --primary: #1a1a1a !important;
+    --link-color: #1a1a1a !important;
+    --link-hover-color: #555555 !important;
+  }
+</style>
