@@ -2,9 +2,10 @@ baseURL = "https://inhhu.github.io/inhlog/"
 locale = "ja-jp"
 title = "Inhlog"
 theme = "explore"
+services.rss.limit = 20  
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON","Sitemap"]
 
 [taxonomies]
   category = "categories"
@@ -14,6 +15,7 @@ theme = "explore"
   author = "inhhh"
   description = "A personal digital archive."
   tagline = ""
+  rssFullContent = true
 
 # --- スタイル設定 ---
   [params.style]
@@ -58,3 +60,4 @@ theme = "explore"
 
 [markup.goldmark.renderer]
   hardWraps = true    
+

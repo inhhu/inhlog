@@ -29,5 +29,12 @@
       <guid>http://localhost:1313/inhlog/about/</guid>
       <description>&lt;h2 id=&#34;私について&#34;&gt;私について&lt;/h2&gt;&#xA;&lt;p&gt;学部4年生です。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;分析形而上学を専攻しながら、&lt;/li&gt;&#xA;&lt;li&gt;ドイツ語圏の哲学・人文学、&lt;/li&gt;&#xA;&lt;li&gt;SF小説、&lt;/li&gt;&#xA;&lt;li&gt;占い、&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;などに関心を持っています。&lt;/p&gt;&#xA;&lt;h2 id=&#34;このブログについて&#34;&gt;このブログについて&lt;/h2&gt;&#xA;&lt;p&gt;このブログは、私が趣味で書いた文章を一元的にアーカイヴすることを目的としています。&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>Search</title>
+      <link>http://localhost:1313/inhlog/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/inhlog/search/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

@@ -1,0 +1,13 @@
+{{- /* VS Codeの警告は無視して大丈夫です。これはHugoが実行時にJSONに変換するテンプレートです */ -}}
+[
+  {{- range $i, $e := .Site.RegularPages -}}
+  {{- if $i -}}, {{- end -}}
+  {
+    "title": {{ .Title | jsonify }},
+    "uri": {{ .RelPermalink | jsonify }},
+    "content": {{ .Plain | htmlUnescape | plainify | jsonify }},
+    "categories": {{ .Params.categories | jsonify }},
+    "tags": {{ .Params.tags | jsonify }}
+  }
+  {{- end -}}
+]
