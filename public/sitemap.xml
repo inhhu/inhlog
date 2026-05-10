@@ -2,15 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://inhhu.github.io/inhlog/writings/</loc>
-    <lastmod>2026-05-08T23:27:41+09:00</lastmod>
+    <loc>http://localhost:1313/inhlog/writings/</loc>
+    <lastmod>2026-05-09T14:57:47+09:00</lastmod>
   </url><url>
-    <loc>https://inhhu.github.io/inhlog/contact/</loc>
+    <loc>http://localhost:1313/inhlog/contact/</loc>
     <lastmod>2026-05-08T22:38:25+09:00</lastmod>
   </url><url>
-    <loc>https://inhhu.github.io/inhlog/about/</loc>
+    <loc>http://localhost:1313/inhlog/about/</loc>
     <lastmod>2026-05-08T22:38:17+09:00</lastmod>
   </url><url>
-    <loc>https://inhhu.github.io/inhlog/search/</loc>
+    <loc>http://localhost:1313/inhlog/search-test/</loc>
   </url>
 </urlset>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>読書メモ on Inhlog</title>
+    <link>http://localhost:1313/inhlog/categories/%E8%AA%AD%E6%9B%B8%E3%83%A1%E3%83%A2/</link>
+    <description>Recent content in 読書メモ on Inhlog</description>
+    <generator>Hugo</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 09 May 2026 14:57:47 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/inhlog/categories/%E8%AA%AD%E6%9B%B8%E3%83%A1%E3%83%A2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Luca Messarra et al. (2026) Vanishing Culture: A Report on Our Fragile Cultural Record</title>
+      <link>http://localhost:1313/inhlog/writings/vanishing_culture_2026/</link>
+      <pubDate>Sat, 09 May 2026 14:57:47 +0900</pubDate>
+      <guid>http://localhost:1313/inhlog/writings/vanishing_culture_2026/</guid>
+      <description>&lt;p&gt;　アーカイヴをめぐる問題意識を現代電子音楽へと落とし込む実践で知られているOne Ohtrix Point Never(OPN)の2025年のアルバム “Tranquilizer”は、ひとつには今日のweb上のアーカイヴの危機を背景として制作された。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
