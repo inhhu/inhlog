@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Diary on Inhlog</title>
+    <link>http://localhost:1313/inhlog/diary/</link>
+    <description>Recent content in Diary on Inhlog</description>
+    <generator>Hugo</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Fri, 15 May 2026 01:30:42 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/inhlog/diary/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2026.05.14</title>
+      <link>http://localhost:1313/inhlog/diary/2026-05-14/</link>
+      <pubDate>Fri, 15 May 2026 01:30:42 +0900</pubDate>
+      <guid>http://localhost:1313/inhlog/diary/2026-05-14/</guid>
+      <description>&lt;ul&gt;&#xA;&lt;li&gt;ほとんど一年ぶりに部屋を掃除した。コピーした論文とかちょっとしたメモはしばらく経つとただのゴミになってしまう。積読のように部屋に置いておくこと自体に意味があるという手の噂は単に本がそこそこ分厚いから成り立つもので、胡乱なはなしな気がする。本は読まれていない間も部屋の空間を確実に占領しているわけで、エーコが床面積ごとの本の維持費を計算していたのはやりすぎではないと思う。&lt;/li&gt;&#xA;&lt;li&gt;部屋の掃除には膨大なエネルギーが必要なので今日は他に特に何もできなかった。&lt;/li&gt;&#xA;&lt;li&gt;Jaron Lanierの&lt;em&gt;You Are Not A Gudget&lt;/em&gt;を少し眺めたら、なんとバシュラールが出てきて面食らってしまった。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>
