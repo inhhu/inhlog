@@ -1,21 +1,11 @@
 {{ define "main" }}
-{{/* data-no-instant を追加して、テーマの先読み機能を強制停止させる */}}
-<div class="container" data-no-instant>
-  <header class="page-header">
-    <h1>{{ .Title | default "Search" }}</h1>
-  </header>
-
-  {{ if .Content }}
-    <div class="page-content">
-      {{ .Content }}
-    </div>
-  {{ end }}
-
-  {{/* 徹底的にシンプルに：data-base-urlなどの怪しい属性は全削除 */}}
-  <input type="search" id="fuse-search-input" placeholder="Search for articles..." class="search-input">
+<div class="container">
+  <h1>{{ .Title }}</h1>
+  
+  {{/* 設定に関わらず、強制的にFuseのボックスを出す */}}
+  <input type="search" id="fuse-search-input" placeholder="Search for articles..." class="search-input" data-base-url="{{ "/" | relLangURL }}">
   <div id="fuse-search-results" class="search-results"></div>
 
-  {{/* JSの読み込み（パスはあなたの環境に合わせています） */}}
   {{ $fuseLib := resources.Get "vendor/fuse.min.js" | fingerprint }}
   <script src="{{ $fuseLib.RelPermalink }}" defer></script>
   
