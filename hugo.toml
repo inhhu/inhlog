@@ -1,5 +1,9 @@
 baseURL = "https://inhhu.github.io/inhlog/"
 locale = "ja-jp"
+#[languages]
+  #[languages.ja]
+    #locale = "ja-jp"
+    #direction = "ltr"  # Left to Right
 title = "Inhlog"
 theme = "explore"
 services.rss.limit = 20  
@@ -16,6 +20,7 @@ services.rss.limit = 20
   description = "A personal digital archive."
   tagline = ""
   rssFullContent = true
+  mainSections = ["writings"] # 念のための二重定義
 
 # --- スタイル設定 ---
   [params.style]

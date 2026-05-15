@@ -1,6 +1,6 @@
 {{ define "main" }}
-{{ $cfg := partial "func/defaults" . }}
-<div class="container">
+{{/* data-no-instant を追加して、テーマの先読み機能を強制停止させる */}}
+<div class="container" data-no-instant>
   <header class="page-header">
     <h1>{{ .Title | default "Search" }}</h1>
   </header>
@@ -11,28 +11,15 @@
     </div>
   {{ end }}
 
-  {{ $searchEngine := $cfg.ui.searchEngine }}
+  {{/* 徹底的にシンプルに：data-base-urlなどの怪しい属性は全削除 */}}
+  <input type="search" id="fuse-search-input" placeholder="Search for articles..." class="search-input">
+  <div id="fuse-search-results" class="search-results"></div>
 
-  {{ if eq $searchEngine "fuse" }}
-    {{/* Fuse.js Search UI */}}
-    <input type="search" id="fuse-search-input" placeholder="Search for articles..." class="search-input" data-base-url="{{ "" | relURL }}">
-    <div id="fuse-search-results" class="search-results"></div>
-
-    {{ $fuseLib := resources.Get "vendor/fuse.min.js" | fingerprint }}
-    <script src="{{ $fuseLib.RelPermalink }}" integrity="{{ $fuseLib.Data.Integrity }}" crossorigin="anonymous" defer></script>
-    {{ $fuseJS := resources.Get "js/search-fuse.js" | resources.Minify | fingerprint }}
-    <script src="{{ $fuseJS.RelPermalink }}" integrity="{{ $fuseJS.Data.Integrity }}" crossorigin="anonymous" defer></script>
-
-  {{ else if eq $searchEngine "pagefind" }}
-    {{/* Pagefind Search UI */}}
-    <div id="pagefind-search" data-base-url="{{ "" | relURL }}"></div>
-
-    {{ $js := resources.Get "js/search-pagefind.js" | resources.Minify }}
-    <script src="{{ $js.RelPermalink }}" defer></script>
-    <link href="{{ "pagefind/pagefind-ui.css" | relURL }}" rel="stylesheet">
-
-  {{ else }}
-    <p>Invalid search engine configured. Use "fuse" or "pagefind".</p>
-  {{ end }}
+  {{/* JSの読み込み（パスはあなたの環境に合わせています） */}}
+  {{ $fuseLib := resources.Get "vendor/fuse.min.js" | fingerprint }}
+  <script src="{{ $fuseLib.RelPermalink }}" defer></script>
+  
+  {{ $fuseJS := resources.Get "js/search-fuse.js" | resources.Minify | fingerprint }}
+  <script src="{{ $fuseJS.RelPermalink }}" defer></script>
 </div>
 {{ end }}
