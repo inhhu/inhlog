@@ -68,15 +68,13 @@ DiscordChatExporterの導入
 githubからDiscordChatExporterを導入する。 https://github.com/tyrrrz/discordchatexporter
 Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&quot;Cli&quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。
 windows環境であれば解凍したフォルダの中にある&quot;DiscordChatExporter.exe&quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。
-
-
-xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕
+ xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕
 
 Discord Botの作成・導入
 
 DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。
 日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。
-Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている1。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。
+ Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている1。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。 
 代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。
 ボットアカウントはDiscord Developer Portal(https://discord.com/developers/applications)で、(英語表示ならば)&ldquo;New Application&quot;ボタンから作成することができる。
 &ldquo;New Application&quot;を作成したら、Developer Portalの左の欄から&quot;Bot&quot;を選択し、&ldquo;Reset Token&quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。
@@ -125,15 +123,13 @@ DiscordChatExporterの導入
 githubからDiscordChatExporterを導入する。 https://github.com/tyrrrz/discordchatexporter
 Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&quot;Cli&quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。
 windows環境であれば解凍したフォルダの中にある&quot;DiscordChatExporter.exe&quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。
-
-
-xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕
+ xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕
 
 Discord Botの作成・導入
 
 DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。
 日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。
-Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている1。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。
+ Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている1。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。 
 代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。
 ボットアカウントはDiscord Developer Portal(https://discord.com/developers/applications)で、(英語表示ならば)&ldquo;New Application&quot;ボタンから作成することができる。
 &ldquo;New Application&quot;を作成したら、Developer Portalの左の欄から&quot;Bot&quot;を選択し、&ldquo;Reset Token&quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。
@@ -161,7 +157,7 @@ https://discord.com/guidelines 第14項。&#160;&#x21a9;&#xfe0e;
   "@type": "BlogPosting",
   "headline": "Discord上のチャットをテキストファイルにする",
   "name": "Discord上のチャットをテキストファイルにする",
-  "description": "\u003cul\u003e\n\u003cli\u003eサークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。\u003c\/li\u003e\n\u003cli\u003e冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。\u003c\/li\u003e\n\u003cli\u003e最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022discordchatexporterの導入\u0022\u003eDiscordChatExporterの導入\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003egithubからDiscordChatExporterを導入する。 \u003ca href=\u0022https:\/\/github.com\/tyrrrz\/discordchatexporter\u0022\u003ehttps:\/\/github.com\/tyrrrz\/discordchatexporter\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003eStable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に\u0026quot;Cli\u0026quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。\u003c\/li\u003e\n\u003cli\u003ewindows環境であれば解凍したフォルダの中にある\u0026quot;DiscordChatExporter.exe\u0026quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cblockquote\u003e\n\u003cp\u003exattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003ch3 id=\u0022discord-botの作成導入\u0022\u003eDiscord Botの作成・導入\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eDiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。\u003c\/li\u003e\n\u003cli\u003e日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。\u003c\/li\u003e\n\u003cli\u003eDiscordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている\u003csup id=\u0022fnref:1\u0022\u003e\u003ca href=\u0022#fn:1\u0022 class=\u0022footnote-ref\u0022 role=\u0022doc-noteref\u0022\u003e1\u003c\/a\u003e\u003c\/sup\u003e。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。\u003c\/li\u003e\n\u003cli\u003e代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。\u003c\/li\u003e\n\u003cli\u003eボットアカウントはDiscord Developer Portal(\u003ca href=\u0022https:\/\/discord.com\/developers\/applications\u0022\u003ehttps:\/\/discord.com\/developers\/applications\u003c\/a\u003e)で、(英語表示ならば)\u0026ldquo;New Application\u0026quot;ボタンから作成することができる。\u003c\/li\u003e\n\u003cli\u003e\u0026ldquo;New Application\u0026quot;を作成したら、Developer Portalの左の欄から\u0026quot;Bot\u0026quot;を選択し、\u0026ldquo;Reset Token\u0026quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。\u003c\/li\u003e\n\u003cli\u003e同じ\u0026quot;Bot\u0026quot;画面で、\u0026ldquo;Privileged Gateway Intents\u0026quot;のうち、\u0026ldquo;Presence Intent\u0026rdquo;, \u0026ldquo;Server Members Intent\u0026rdquo;, \u0026ldquo;Message Content Intent\u0026quot;を全て有効化し、変更を保存する。\u003c\/li\u003e\n\u003cli\u003e\u0026ldquo;Bot\u0026quot;画面から\u0026quot;OAuth2\u0026quot;に移り、\u0026ldquo;URL Generator\u0026quot;をクリックする。\u0026ldquo;SCOPES\u0026quot;という一覧が出るので、\u0026ldquo;bot\u0026quot;を選択し、\u0026ldquo;BOT PERMISSION\u0026quot;の一覧から、\u0026ldquo;Read Message History\u0026quot;と\u0026quot;View Channels\u0026quot;を選択して権限を付与する。\u003c\/li\u003e\n\u003cli\u003e画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022discordchatexporterの実行\u0022\u003eDiscordChatExporterの実行\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eDiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。\u003c\/li\u003e\n\u003cli\u003eボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば\u0026quot;More\u0026quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cdiv class=\u0022footnotes\u0022 role=\u0022doc-endnotes\u0022\u003e\n\u003chr\u003e\n\u003col\u003e\n\u003cli id=\u0022fn:1\u0022\u003e\n\u003cp\u003e\u003ca href=\u0022https:\/\/discord.com\/guidelines\u0022\u003ehttps:\/\/discord.com\/guidelines\u003c\/a\u003e 第14項。\u0026#160;\u003ca href=\u0022#fnref:1\u0022 class=\u0022footnote-backref\u0022 role=\u0022doc-backlink\u0022\u003e\u0026#x21a9;\u0026#xfe0e;\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003c\/div\u003e",
+  "description": "\u003cul\u003e\n\u003cli\u003eサークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。\u003c\/li\u003e\n\u003cli\u003e冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。\u003c\/li\u003e\n\u003cli\u003e最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022discordchatexporterの導入\u0022\u003eDiscordChatExporterの導入\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003egithubからDiscordChatExporterを導入する。 \u003ca href=\u0022https:\/\/github.com\/tyrrrz\/discordchatexporter\u0022\u003ehttps:\/\/github.com\/tyrrrz\/discordchatexporter\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003eStable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に\u0026quot;Cli\u0026quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。\u003c\/li\u003e\n\u003cli\u003ewindows環境であれば解凍したフォルダの中にある\u0026quot;DiscordChatExporter.exe\u0026quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。\u003cbr\u003e\n\u003ccode\u003e xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕\u003c\/code\u003e\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022discord-botの作成導入\u0022\u003eDiscord Botの作成・導入\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eDiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。\u003c\/li\u003e\n\u003cli\u003e日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。\u003c\/li\u003e\n\u003cli\u003e\u003cu\u003e Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている\u003csup id=\u0022fnref:1\u0022\u003e\u003ca href=\u0022#fn:1\u0022 class=\u0022footnote-ref\u0022 role=\u0022doc-noteref\u0022\u003e1\u003c\/a\u003e\u003c\/sup\u003e。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。 \u003c\/u\u003e\u003c\/li\u003e\n\u003cli\u003e代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。\u003c\/li\u003e\n\u003cli\u003eボットアカウントはDiscord Developer Portal(\u003ca href=\u0022https:\/\/discord.com\/developers\/applications\u0022\u003ehttps:\/\/discord.com\/developers\/applications\u003c\/a\u003e)で、(英語表示ならば)\u0026ldquo;New Application\u0026quot;ボタンから作成することができる。\u003c\/li\u003e\n\u003cli\u003e\u0026ldquo;New Application\u0026quot;を作成したら、Developer Portalの左の欄から\u0026quot;Bot\u0026quot;を選択し、\u0026ldquo;Reset Token\u0026quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。\u003c\/li\u003e\n\u003cli\u003e同じ\u0026quot;Bot\u0026quot;画面で、\u0026ldquo;Privileged Gateway Intents\u0026quot;のうち、\u0026ldquo;Presence Intent\u0026rdquo;, \u0026ldquo;Server Members Intent\u0026rdquo;, \u0026ldquo;Message Content Intent\u0026quot;を全て有効化し、変更を保存する。\u003c\/li\u003e\n\u003cli\u003e\u0026ldquo;Bot\u0026quot;画面から\u0026quot;OAuth2\u0026quot;に移り、\u0026ldquo;URL Generator\u0026quot;をクリックする。\u0026ldquo;SCOPES\u0026quot;という一覧が出るので、\u0026ldquo;bot\u0026quot;を選択し、\u0026ldquo;BOT PERMISSION\u0026quot;の一覧から、\u0026ldquo;Read Message History\u0026quot;と\u0026quot;View Channels\u0026quot;を選択して権限を付与する。\u003c\/li\u003e\n\u003cli\u003e画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022discordchatexporterの実行\u0022\u003eDiscordChatExporterの実行\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eDiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。\u003c\/li\u003e\n\u003cli\u003eボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば\u0026quot;More\u0026quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cdiv class=\u0022footnotes\u0022 role=\u0022doc-endnotes\u0022\u003e\n\u003chr\u003e\n\u003col\u003e\n\u003cli id=\u0022fn:1\u0022\u003e\n\u003cp\u003e\u003ca href=\u0022https:\/\/discord.com\/guidelines\u0022\u003ehttps:\/\/discord.com\/guidelines\u003c\/a\u003e 第14項。\u0026#160;\u003ca href=\u0022#fnref:1\u0022 class=\u0022footnote-backref\u0022 role=\u0022doc-backlink\u0022\u003e\u0026#x21a9;\u0026#xfe0e;\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003c\/div\u003e",
   "url": "http:\/\/localhost:1313\/inhlog\/writings\/discordchatexporter\/",
   
   "datePublished": "2026-06-17T23:15:47\u002b09:00",
@@ -199,7 +195,7 @@ https://discord.com/guidelines 第14項。&#160;&#x21a9;&#xfe0e;
 
 
   
-  <link rel="stylesheet" href="/inhlog/css/style.30fde3dda7c61c0b21e96c9063b71d4f1c2811a6ba842863a9aea7e7964c3435.css" integrity="sha256-MP3j3afGHAsh6WyQY7cdTxwoEaa6hChjqa6n55ZMNDU=">
+  <link rel="stylesheet" href="/inhlog/css/style.cb29fb831252cf62e87b6a7bc31b0dcb1f9b2e50965ff5711c67040d6a517656.css" integrity="sha256-yyn7gxJSz2Loe2p7wxsNyx&#43;bLlCWX/VxHGcEDWpRdlY=">
 
 
 
@@ -391,16 +387,14 @@ https://discord.com/guidelines 第14項。&#160;&#x21a9;&#xfe0e;
 <ul>
 <li>githubからDiscordChatExporterを導入する。 <a href="https://github.com/tyrrrz/discordchatexporter">https://github.com/tyrrrz/discordchatexporter</a></li>
 <li>Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&quot;Cli&quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。</li>
-<li>windows環境であれば解凍したフォルダの中にある&quot;DiscordChatExporter.exe&quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。</li>
+<li>windows環境であれば解凍したフォルダの中にある&quot;DiscordChatExporter.exe&quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。<br>
+<code> xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕</code></li>
 </ul>
-<blockquote>
-<p>xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕</p>
-</blockquote>
 <h3 id="discord-botの作成導入">Discord Botの作成・導入</h3>
 <ul>
 <li>DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。</li>
 <li>日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。</li>
-<li>Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。</li>
+<li><u> Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。 </u></li>
 <li>代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。</li>
 <li>ボットアカウントはDiscord Developer Portal(<a href="https://discord.com/developers/applications">https://discord.com/developers/applications</a>)で、(英語表示ならば)&ldquo;New Application&quot;ボタンから作成することができる。</li>
 <li>&ldquo;New Application&quot;を作成したら、Developer Portalの左の欄から&quot;Bot&quot;を選択し、&ldquo;Reset Token&quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。</li>
@@ -469,9 +463,9 @@ https://discord.com/guidelines 第14項。&#160;&#x21a9;&#xfe0e;
     
 <nav class="post-nav">
   
-  <a href="/inhlog/writings/lanier-yanag-1/" class="nav-prev">
+  <a href="/inhlog/writings/vanishing_culture_2026/" class="nav-prev">
     <span class="nav-arrow">&larr;</span>
-    <span class="nav-title">Jaron Lanier (2011) You Are Not A Gudget 第一部</span>
+    <span class="nav-title">Luca Messarra et al. (2026) Vanishing Culture: A Report on Our Fragile Cultural Record</span>
   </a>
   
   
