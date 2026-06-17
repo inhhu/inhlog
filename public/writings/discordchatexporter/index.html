@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head><script src="/inhlog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=inhlog/livereload" data-no-instant defer></script>
+  <script>
+  (function(d) {
+    var config = {
+      kitId: 'psr6rlj',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
+<link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
+<style>
+   
+  :root {
+    --primary: #1a1a1a !important;
+    --accent: #555555 !important;
+  }
+  
+   
+  a, .archive-list a, .post-title a, .menu-link {
+    color: var(--primary) !important;
+    text-decoration-color: #ccc !important;
+  }
+
+  a:hover {
+    color: var(--accent) !important;
+    text-decoration-color: var(--accent) !important;
+  }
+
+   
+  [data-theme='dark'] a, 
+  [data-theme='dark'] .archive-list a {
+    color: #e0e0e0 !important;
+  }
+
+   
+  ::selection {
+    background-color: #444 !important;
+    color: #fff !important;
+  }
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Discord上のチャットをテキストファイルにする &middot; Inhlog</title>
+
+<meta name="description" content="A personal digital archive.">
+<meta name="author" content="inhhh">
+<link rel="canonical" href="http://localhost:1313/inhlog/writings/discordchatexporter/">
+
+
+
+
+
+
+<meta property="og:title" content="Discord上のチャットをテキストファイルにする">
+<meta property="og:description" content="
+サークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。
+冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。
+最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。
+
+DiscordChatExporterの導入
+
+githubからDiscordChatExporterを導入する。 https://github.com/tyrrrz/discordchatexporter
+Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&quot;Cli&quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。
+windows環境であれば解凍したフォルダの中にある&quot;DiscordChatExporter.exe&quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。
+
+
+xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕
+
+Discord Botの作成・導入
+
+DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。
+日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。
+Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている1。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。
+代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。
+ボットアカウントはDiscord Developer Portal(https://discord.com/developers/applications)で、(英語表示ならば)&ldquo;New Application&quot;ボタンから作成することができる。
+&ldquo;New Application&quot;を作成したら、Developer Portalの左の欄から&quot;Bot&quot;を選択し、&ldquo;Reset Token&quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。
+同じ&quot;Bot&quot;画面で、&ldquo;Privileged Gateway Intents&quot;のうち、&ldquo;Presence Intent&rdquo;, &ldquo;Server Members Intent&rdquo;, &ldquo;Message Content Intent&quot;を全て有効化し、変更を保存する。
+&ldquo;Bot&quot;画面から&quot;OAuth2&quot;に移り、&ldquo;URL Generator&quot;をクリックする。&ldquo;SCOPES&quot;という一覧が出るので、&ldquo;bot&quot;を選択し、&ldquo;BOT PERMISSION&quot;の一覧から、&ldquo;Read Message History&quot;と&quot;View Channels&quot;を選択して権限を付与する。
+画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。
+
+DiscordChatExporterの実行
+
+DiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。
+ボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば&quot;More&quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。
+
+
+
+
+
+https://discord.com/guidelines 第14項。&#160;&#x21a9;&#xfe0e;
+
+
+">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/inhlog/writings/discordchatexporter/">
+
+
+
+<meta property="article:section" content="writings">
+
+
+<meta property="article:published_time" content="2026-06-17 23:15:47 &#43;0900 JST">
+
+
+<meta property="article:modified_time" content="2026-06-17 23:15:47 &#43;0900 JST">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Discord上のチャットをテキストファイルにする">
+<meta name="twitter:description" content="
+サークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。
+冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。
+最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。
+
+DiscordChatExporterの導入
+
+githubからDiscordChatExporterを導入する。 https://github.com/tyrrrz/discordchatexporter
+Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&quot;Cli&quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。
+windows環境であれば解凍したフォルダの中にある&quot;DiscordChatExporter.exe&quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。
+
+
+xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕
+
+Discord Botの作成・導入
+
+DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。
+日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。
+Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている1。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。
+代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。
+ボットアカウントはDiscord Developer Portal(https://discord.com/developers/applications)で、(英語表示ならば)&ldquo;New Application&quot;ボタンから作成することができる。
+&ldquo;New Application&quot;を作成したら、Developer Portalの左の欄から&quot;Bot&quot;を選択し、&ldquo;Reset Token&quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。
+同じ&quot;Bot&quot;画面で、&ldquo;Privileged Gateway Intents&quot;のうち、&ldquo;Presence Intent&rdquo;, &ldquo;Server Members Intent&rdquo;, &ldquo;Message Content Intent&quot;を全て有効化し、変更を保存する。
+&ldquo;Bot&quot;画面から&quot;OAuth2&quot;に移り、&ldquo;URL Generator&quot;をクリックする。&ldquo;SCOPES&quot;という一覧が出るので、&ldquo;bot&quot;を選択し、&ldquo;BOT PERMISSION&quot;の一覧から、&ldquo;Read Message History&quot;と&quot;View Channels&quot;を選択して権限を付与する。
+画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。
+
+DiscordChatExporterの実行
+
+DiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。
+ボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば&quot;More&quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。
+
+
+
+
+
+https://discord.com/guidelines 第14項。&#160;&#x21a9;&#xfe0e;
+
+
+">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Discord上のチャットをテキストファイルにする",
+  "name": "Discord上のチャットをテキストファイルにする",
+  "description": "\u003cul\u003e\n\u003cli\u003eサークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。\u003c\/li\u003e\n\u003cli\u003e冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。\u003c\/li\u003e\n\u003cli\u003e最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022discordchatexporterの導入\u0022\u003eDiscordChatExporterの導入\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003egithubからDiscordChatExporterを導入する。 \u003ca href=\u0022https:\/\/github.com\/tyrrrz\/discordchatexporter\u0022\u003ehttps:\/\/github.com\/tyrrrz\/discordchatexporter\u003c\/a\u003e\u003c\/li\u003e\n\u003cli\u003eStable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に\u0026quot;Cli\u0026quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。\u003c\/li\u003e\n\u003cli\u003ewindows環境であれば解凍したフォルダの中にある\u0026quot;DiscordChatExporter.exe\u0026quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cblockquote\u003e\n\u003cp\u003exattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003ch3 id=\u0022discord-botの作成導入\u0022\u003eDiscord Botの作成・導入\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eDiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。\u003c\/li\u003e\n\u003cli\u003e日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。\u003c\/li\u003e\n\u003cli\u003eDiscordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている\u003csup id=\u0022fnref:1\u0022\u003e\u003ca href=\u0022#fn:1\u0022 class=\u0022footnote-ref\u0022 role=\u0022doc-noteref\u0022\u003e1\u003c\/a\u003e\u003c\/sup\u003e。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。\u003c\/li\u003e\n\u003cli\u003e代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。\u003c\/li\u003e\n\u003cli\u003eボットアカウントはDiscord Developer Portal(\u003ca href=\u0022https:\/\/discord.com\/developers\/applications\u0022\u003ehttps:\/\/discord.com\/developers\/applications\u003c\/a\u003e)で、(英語表示ならば)\u0026ldquo;New Application\u0026quot;ボタンから作成することができる。\u003c\/li\u003e\n\u003cli\u003e\u0026ldquo;New Application\u0026quot;を作成したら、Developer Portalの左の欄から\u0026quot;Bot\u0026quot;を選択し、\u0026ldquo;Reset Token\u0026quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。\u003c\/li\u003e\n\u003cli\u003e同じ\u0026quot;Bot\u0026quot;画面で、\u0026ldquo;Privileged Gateway Intents\u0026quot;のうち、\u0026ldquo;Presence Intent\u0026rdquo;, \u0026ldquo;Server Members Intent\u0026rdquo;, \u0026ldquo;Message Content Intent\u0026quot;を全て有効化し、変更を保存する。\u003c\/li\u003e\n\u003cli\u003e\u0026ldquo;Bot\u0026quot;画面から\u0026quot;OAuth2\u0026quot;に移り、\u0026ldquo;URL Generator\u0026quot;をクリックする。\u0026ldquo;SCOPES\u0026quot;という一覧が出るので、\u0026ldquo;bot\u0026quot;を選択し、\u0026ldquo;BOT PERMISSION\u0026quot;の一覧から、\u0026ldquo;Read Message History\u0026quot;と\u0026quot;View Channels\u0026quot;を選択して権限を付与する。\u003c\/li\u003e\n\u003cli\u003e画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003ch3 id=\u0022discordchatexporterの実行\u0022\u003eDiscordChatExporterの実行\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eDiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。\u003c\/li\u003e\n\u003cli\u003eボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば\u0026quot;More\u0026quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cdiv class=\u0022footnotes\u0022 role=\u0022doc-endnotes\u0022\u003e\n\u003chr\u003e\n\u003col\u003e\n\u003cli id=\u0022fn:1\u0022\u003e\n\u003cp\u003e\u003ca href=\u0022https:\/\/discord.com\/guidelines\u0022\u003ehttps:\/\/discord.com\/guidelines\u003c\/a\u003e 第14項。\u0026#160;\u003ca href=\u0022#fnref:1\u0022 class=\u0022footnote-backref\u0022 role=\u0022doc-backlink\u0022\u003e\u0026#x21a9;\u0026#xfe0e;\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003c\/div\u003e",
+  "url": "http:\/\/localhost:1313\/inhlog\/writings\/discordchatexporter\/",
+  
+  "datePublished": "2026-06-17T23:15:47\u002b09:00",
+  "dateModified": "2026-06-17T23:15:47\u002b09:00",
+  "author": {
+    "@type": "Person",
+    "name": "inhhh"
+  },
+  
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http:\/\/localhost:1313\/inhlog\/writings\/discordchatexporter\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inhlog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http:\/\/localhost:1313\/inhlog\/apple-touch-icon.png"
+    }
+  }
+}
+</script>
+
+
+
+
+
+<link rel="preload" href="/inhlog/fonts/inter-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/inhlog/fonts/inter-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/inhlog/fonts/jetbrains-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/inhlog/css/style.30fde3dda7c61c0b21e96c9063b71d4f1c2811a6ba842863a9aea7e7964c3435.css" integrity="sha256-MP3j3afGHAsh6WyQY7cdTxwoEaa6hChjqa6n55ZMNDU=">
+
+
+
+  
+  <link rel="stylesheet" href="/inhlog/scss/custom.min.c1123fe80fda54761d59fda8e7ba4d50f89a6c249e35e23051682a65dfdc78db.css" integrity="sha256-wRI/6A/aVHYdWf2o57pNUPiabCSeNeIwUWgqZd/ceNs=">
+
+
+
+<script>
+  (function() {
+    try {
+      
+      var savedTheme = localStorage.getItem('theme');
+      
+      
+      if (!savedTheme) {
+        savedTheme = 'light';
+        localStorage.setItem('theme', 'light');
+      }
+      
+      
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } catch (e) {}
+  })();
+</script>
+
+<style>
+   
+  a:hover, 
+  .menu-link:hover, 
+  .archive-list a:hover, 
+  .post-title a:hover {
+    color: #555555 !important;  
+    text-decoration: underline !important;  
+    background: none !important;  
+  }
+
+   
+  button:hover, 
+  svg:hover,
+  #search-input:focus {
+    border-color: #555555 !important;
+    fill: #555555 !important;
+    outline: none !important;
+  }
+
+   
+  [data-theme='dark'] a:hover {
+    color: #bbbbbb !important;  
+  }
+</style>
+<style>
+  :root {
+    --accent: #555555 !important;
+    --primary: #1a1a1a !important;
+    --link-color: #1a1a1a !important;
+    --link-hover-color: #555555 !important;
+  }
+</style>
+</head>
+<body>
+  
+<header class="site-header ">
+  <div class="container header-inner">
+    <div class="site-identity">
+      <a href="/inhlog/" class="site-brand">
+        
+        <span class="site-title">Inhlog</span>
+      </a>
+      
+    </div>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <nav id="site-nav" class="site-nav">
+      <div class="main-nav">
+        <ul>
+          
+          
+          <li>
+            <a href="/inhlog/writings/" class="">Writings</a>
+          </li>
+          
+          <li>
+            <a href="/inhlog/diary/" class="">Diary</a>
+          </li>
+          
+          <li>
+            <a href="/inhlog/about/" class="">About</a>
+          </li>
+          
+          <li>
+            <a href="/inhlog/contact/" class="">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="nav-utils">
+        <a href="http://localhost:1313/inhlog/index.xml" class="nav-rss" aria-label="RSS Feed" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+        </a>
+        
+        <a href="/inhlog/search" class="nav-search" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+  <main class="site-main">
+    
+
+<div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="container">
+  <div class="layout-grid layout-grid--sidebar-left">
+    <article class="post-single main-content main-content--sidebar-left">
+      <header class="post-header">
+        <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/inhlog/">Home</a></li><li class="breadcrumb-item"><a href="/inhlog/writings/">Writings</a></li><li class="breadcrumb-item" aria-current="page">Discord上のチャットをテキストファイルにする</li>
+  </ol>
+</nav>
+        <h1 class="post-title">Discord上のチャットをテキストファイルにする</h1>
+        <div class="post-meta">
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <time datetime="2026-06-17T23:15:47&#43;09:00">Jun 17, 2026</time>
+            </span>
+          
+
+          
+            <span class="post-categories">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+              
+                
+                <a href="/inhlog/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+              
+            </span>
+          
+
+          
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              inhhh
+            </span>
+          
+        </div>
+      </header>
+
+      
+
+      <div class="post-content">
+        <ul>
+<li>サークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。</li>
+<li>冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。</li>
+<li>最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。</li>
+</ul>
+<h3 id="discordchatexporterの導入">DiscordChatExporterの導入</h3>
+<ul>
+<li>githubからDiscordChatExporterを導入する。 <a href="https://github.com/tyrrrz/discordchatexporter">https://github.com/tyrrrz/discordchatexporter</a></li>
+<li>Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&quot;Cli&quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。</li>
+<li>windows環境であれば解凍したフォルダの中にある&quot;DiscordChatExporter.exe&quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。</li>
+</ul>
+<blockquote>
+<p>xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕</p>
+</blockquote>
+<h3 id="discord-botの作成導入">Discord Botの作成・導入</h3>
+<ul>
+<li>DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。</li>
+<li>日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。</li>
+<li>Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。</li>
+<li>代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。</li>
+<li>ボットアカウントはDiscord Developer Portal(<a href="https://discord.com/developers/applications">https://discord.com/developers/applications</a>)で、(英語表示ならば)&ldquo;New Application&quot;ボタンから作成することができる。</li>
+<li>&ldquo;New Application&quot;を作成したら、Developer Portalの左の欄から&quot;Bot&quot;を選択し、&ldquo;Reset Token&quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。</li>
+<li>同じ&quot;Bot&quot;画面で、&ldquo;Privileged Gateway Intents&quot;のうち、&ldquo;Presence Intent&rdquo;, &ldquo;Server Members Intent&rdquo;, &ldquo;Message Content Intent&quot;を全て有効化し、変更を保存する。</li>
+<li>&ldquo;Bot&quot;画面から&quot;OAuth2&quot;に移り、&ldquo;URL Generator&quot;をクリックする。&ldquo;SCOPES&quot;という一覧が出るので、&ldquo;bot&quot;を選択し、&ldquo;BOT PERMISSION&quot;の一覧から、&ldquo;Read Message History&quot;と&quot;View Channels&quot;を選択して権限を付与する。</li>
+<li>画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。</li>
+</ul>
+<h3 id="discordchatexporterの実行">DiscordChatExporterの実行</h3>
+<ul>
+<li>DiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。</li>
+<li>ボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば&quot;More&quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://discord.com/guidelines">https://discord.com/guidelines</a> 第14項。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div>
+
+      <footer>
+        
+      </footer>
+    </article>
+
+    
+    
+      
+
+
+
+
+<aside class="sidebar">
+  
+  
+    <aside class="toc">
+  <h2 class="toc-title">Table of Contents</h2>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#discordchatexporterの導入">DiscordChatExporterの導入</a></li>
+        <li><a href="#discord-botの作成導入">Discord Botの作成・導入</a></li>
+        <li><a href="#discordchatexporterの実行">DiscordChatExporterの実行</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</aside>
+  
+
+  
+  
+    
+    
+  
+</aside>
+
+    
+  </div>
+
+  
+    
+<nav class="post-nav">
+  
+  <a href="/inhlog/writings/lanier-yanag-1/" class="nav-prev">
+    <span class="nav-arrow">&larr;</span>
+    <span class="nav-title">Jaron Lanier (2011) You Are Not A Gudget 第一部</span>
+  </a>
+  
+  
+</nav>
+
+
+  
+
+  
+    
+
+
+
+  
+</div>
+
+  </main>
+  
+<footer class="site-footer">
+  <div class="container">
+    
+    
+    <div class="copyright">
+      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/yogirk/explore" target="_blank" rel="noopener">Explore Theme</a>.
+    </div>
+  </div>
+</footer>
+
+  
+  <script src="/inhlog/js/minimal.min.6a9ca11052c7f4a8a7596e64d3b60b3b1040bc4e6c825054f99533c3126a84a6.js" integrity="sha256-apyhEFLH9KinWW5k07YLOxBAvE5sglBU&#43;ZUzwxJqhKY=" crossorigin="anonymous" defer></script>
+  
+  
+</body>
+</html>

@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Sun, 10 May 2026 14:57:47 +0900</lastBuildDate>
+			<lastBuildDate>Sat, 16 May 2026 15:43:04 +0900</lastBuildDate>
 		
 			<atom:link href="http://localhost:1313/inhlog/writings/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Jaron Lanier (2011) You Are Not A Gudget 第一部</title>
+				<link>http://localhost:1313/inhlog/writings/lanier-yanag-1/</link>
+				<pubDate>Sat, 16 May 2026 15:43:04 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/writings/lanier-yanag-1/</guid>
+				<description></description>
+			</item>
 			<item>
 				<title>Luca Messarra et al. (2026) Vanishing Culture: A Report on Our Fragile Cultural Record</title>
 				<link>http://localhost:1313/inhlog/writings/vanishing_culture_2026/</link>

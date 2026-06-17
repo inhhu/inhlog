@@ -60,7 +60,7 @@
 <!-- SEO -->
 {{ partial "seo/opengraph.html" . }}
 {{ partial "seo/schema.html" . }}
-{{ if ne .Kind "page" }}
+{{ if and (ne .Kind "page") (not (eq .Kind "404")) }}
   {{ with .Paginator }}
     {{ if .HasPrev }}<link rel="prev" href="{{ .Prev.URL }}">{{ end }}
     {{ if .HasNext }}<link rel="next" href="{{ .Next.URL }}">{{ end }}
