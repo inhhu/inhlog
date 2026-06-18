@@ -1,152 +1,157 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Inhlog</title>
-    <link>http://localhost:1313/inhlog/</link>
-    <description>Recent content on Inhlog</description>
-    <generator>Hugo</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Wed, 17 Jun 2026 23:15:47 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/inhlog/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Discord上のチャットをテキストファイルにする</title>
-      <link>http://localhost:1313/inhlog/writings/discordchatexporter/</link>
-      <pubDate>Wed, 17 Jun 2026 23:15:47 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/writings/discordchatexporter/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;サークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。&lt;/li&gt;&#xA;&lt;li&gt;冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。&lt;/li&gt;&#xA;&lt;li&gt;最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;discordchatexporterの導入&#34;&gt;DiscordChatExporterの導入&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;githubからDiscordChatExporterを導入する。 &lt;a href=&#34;https://github.com/tyrrrz/discordchatexporter&#34;&gt;https://github.com/tyrrrz/discordchatexporter&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&amp;quot;Cli&amp;quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。&lt;/li&gt;&#xA;&lt;li&gt;windows環境であれば解凍したフォルダの中にある&amp;quot;DiscordChatExporter.exe&amp;quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。&lt;br&gt;&#xA;&lt;code&gt; xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;discord-botの作成導入&#34;&gt;Discord Botの作成・導入&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。&lt;/li&gt;&#xA;&lt;li&gt;日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt; Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。 &lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。&lt;/li&gt;&#xA;&lt;li&gt;ボットアカウントは&lt;a href=&#34;https://discord.com/developers/applications&#34;&gt;Discord Developer Portal&lt;/a&gt;で、(英語表示ならば)&amp;ldquo;New Application&amp;quot;ボタンから作成することができる。&lt;/li&gt;&#xA;&lt;li&gt;&amp;ldquo;New Application&amp;quot;を作成したら、Developer Portalの左の欄から&amp;quot;Bot&amp;quot;を選択し、&amp;ldquo;Reset Token&amp;quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。&lt;/li&gt;&#xA;&lt;li&gt;同じ&amp;quot;Bot&amp;quot;画面で、&amp;ldquo;Privileged Gateway Intents&amp;quot;のうち、&amp;ldquo;Presence Intent&amp;rdquo;, &amp;ldquo;Server Members Intent&amp;rdquo;, &amp;ldquo;Message Content Intent&amp;quot;を全て有効化し、変更を保存する。&lt;/li&gt;&#xA;&lt;li&gt;&amp;ldquo;Bot&amp;quot;画面から&amp;quot;OAuth2&amp;quot;に移り、&amp;ldquo;URL Generator&amp;quot;をクリックする。&amp;ldquo;SCOPES&amp;quot;という一覧が出るので、&amp;ldquo;bot&amp;quot;を選択し、&amp;ldquo;BOT PERMISSION&amp;quot;の一覧から、&amp;ldquo;Read Message History&amp;quot;と&amp;quot;View Channels&amp;quot;を選択して権限を付与する。&lt;/li&gt;&#xA;&lt;li&gt;画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;discordchatexporterの実行&#34;&gt;DiscordChatExporterの実行&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;DiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。&lt;/li&gt;&#xA;&lt;li&gt;ボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば&amp;quot;More&amp;quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://discord.com/guidelines&#34;&gt;https://discord.com/guidelines&lt;/a&gt; 第14項。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.17</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-17/</link>
-      <pubDate>Wed, 17 Jun 2026 18:13:03 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-17/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;水曜日。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;大学にいる人がなぜかとても少なくて、ついぞ誰とも話さずに帰ってきてしまった。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;ndlocr-liteについていまさら知って少し試してみた。すこし試してみた程度だが、スキャナーで作ったpdfにかけると意外と誤認識が多く、手書きのメモなどにかけるとかなり正確に認識されるような気がする。&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/ndl-lab/ndlocr-lite/releases&#34;&gt;https://github.com/ndl-lab/ndlocr-lite/releases&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;スキャナーで作ったpdfに対してのOCRに関してはacrobatの日本語OCRの方が精度がまだ高い気がしてしまったが、私の使い方の問題だろうか。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;また就職した先輩と会った。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.16</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-16/</link>
-      <pubDate>Wed, 17 Jun 2026 00:26:37 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-16/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;火曜日。&lt;/li&gt;&#xA;&lt;li&gt;fpsゲームのはなしができて満足。&lt;/li&gt;&#xA;&lt;li&gt;コロナがあったこともあって私にとってfpsゲームは青春だ。&lt;/li&gt;&#xA;&lt;li&gt;今日はカウンセリングで理論についてめちゃくちゃ聞いてしまった。&lt;/li&gt;&#xA;&lt;li&gt;こんな客がいたらたまったものじゃないだろう。&lt;/li&gt;&#xA;&lt;li&gt;なぜかはわからないが二郎が食べたすぎる。&lt;/li&gt;&#xA;&lt;li&gt;メルシーも食べたい。&lt;/li&gt;&#xA;&lt;li&gt;蝦夷菊はいいや。&lt;/li&gt;&#xA;&lt;li&gt;メルシーか二郎食べたいーーー。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.15</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-15/</link>
-      <pubDate>Mon, 15 Jun 2026 14:24:17 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-15/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;月曜日。&lt;/li&gt;&#xA;&lt;li&gt;リック・アンド・モーティと上伊那ぼたんの最新話を見た。上伊那ぼたんは私文力と相性が悪い。　&lt;/li&gt;&#xA;&lt;li&gt;最近小説が読めない。&lt;/li&gt;&#xA;&lt;li&gt;多読多聴という語学の方法自体は若干時代がかっているが、少なくとも私にはとても相性が良いので、ドイツ語の勉強でもそのようにできたらと考えている。が、日本で手に入るドイツ語のGraded Readerはフランス語やスペイン語のようなロマンス諸語と比べて有意に少ないように思う。駒場の河野書店で手に入れたrororo-Bildmonographienを何冊か持っているくらいだが、正直言ってこのシリーズは私の「i + 1」をはるかに超えている。それに、そもそもこれはGRではない。&lt;/li&gt;&#xA;&lt;li&gt;反対に、少なくとも東京でフランス語を多読多聴によって勉強するのは相対的に容易いと思う。&lt;/li&gt;&#xA;&lt;li&gt;GRを新刊書で買うことは、紙の本にせよ、電子書籍にせよ、単純に予算の問題からほとんどの学習者にとって選択肢ではない。例えばrororoも電子書籍で一冊10ユーロする。明らかに何度も読むものにはなりえないし、2000円あったらもっと他の本を買いたいというのが道理だ。&lt;/li&gt;&#xA;&lt;li&gt;語学は難しい。私はクラシェンが理論化したものにかなり納得しているのだが、「i + 1のインプット」を学習の途上で、情意フィルターによって妨げられることなく続けることには相当な工夫が必要だと思う。というのも、「i + 1」で触れることができるものは、私が母語で触れることができるものに比べたら、圧倒的につまらないに決まっているのだ。&lt;/li&gt;&#xA;&lt;li&gt;そういえば地元の図書館でいつまで経っても山形浩生の『翻訳者の全技術』が借りられなかったが、有名なYoutubeチャンネルで紹介されていたらしい。人を馬鹿にした不愉快なサムネイルの動画だった。&lt;/li&gt;&#xA;&lt;li&gt;私は人の顔を見て話すことが苦手なので、私にとって人間の顔を一番よく観察する機会は、Youtubeの動画のサムネイルを眺めることだと思う。反対色のライティングに照らしだされた顔、コントラストを上げすぎてほとんど月みたいにボコボコに見える顔、端的に不愉快な変顔。これらが現代に特有の顔のイメージな気がする。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.14</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-14/</link>
-      <pubDate>Sun, 14 Jun 2026 11:52:09 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-14/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;日曜日。&lt;/li&gt;&#xA;&lt;li&gt;私は渋谷によく行くし、わけのわからない学部の所属だが、遅かれ早かれ東京はどこも渋谷のようになるだろうし、大学も実学志向・学際化を目指してその質を損なっていくだろう。そういう現状に人一倍詳しいという自負があるが、こういうことを気にする人は実はそんなに多くない気もする。&lt;/li&gt;&#xA;&lt;li&gt;週末に何もできないのはよくない。ベローチェ以外に行くところがないのが苦しい。ベローチェには喫煙ボックスと飲み物とトイレしかないが、たしかに私の生活はこの3つのリズムでできている気がする。&lt;/li&gt;&#xA;&lt;li&gt;ホムラヒロシが嫌いだ。顔が嫌だしエッセイも気持ち悪い。高校のときに散々読まされたが、そのときは男子校的なものの悪徳だと思っていたので、これほど流行っているとは知らなかった。気色の悪いメガネをかけるような奴らは信用できない。&lt;/li&gt;&#xA;&lt;li&gt;スピノザが面白い。私は自分が男性であることに美的に納得がいっていないタイプなので自己啓発のような響きをもって入ってくる。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.13</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-13/</link>
-      <pubDate>Sat, 13 Jun 2026 14:36:22 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-13/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;土曜日。&lt;/li&gt;&#xA;&lt;li&gt;ベローチェが混んでいて変な席にしか座れず、本が頭に入ってこない。&lt;/li&gt;&#xA;&lt;li&gt;宇野邦一の『ドゥルーズ : 群れと結晶』を読んだ。廣瀬純がどこかで日本語でドゥルーズに入門するために最初の本として最良なのはいまだにこの本だと言っているのを見た気がしたので手に取ったが、あまりしっかり理解できたとは言いがたい。&lt;/li&gt;&#xA;&lt;li&gt;スピノザ由来の並行論に関連する箇所はわかる気がするが、ドゥルーズ独特の文学者や哲学者への言及の目論見や、独特の述語がまだよくわからない。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;〔&amp;hellip;〕こうした「存在への問い」を意識し、自らの課題とするような人間は実際にはわずかであろう。ところが、実はほぼすべての人間には無意識的に――すなわち日常的に、つまり前-哲学的に――有している「存在」についての或る領域の仕方と評価の仕方があり、それが哲学における存在論として概念化され言語化され体系化されてきたのである。つまり、これによって存在論は、価値論と不可分になるのである&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;江川隆男 (2025)『哲学は何ではないのか : 差異のエチカ』(筑摩書房)&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.12</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-12/</link>
-      <pubDate>Fri, 12 Jun 2026 12:50:51 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-12/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;金曜日。&lt;/li&gt;&#xA;&lt;li&gt;アルコールが残り気味。たぶん胃が弱いので発泡酒を飲むのを控えよう&amp;hellip;&lt;/li&gt;&#xA;&lt;li&gt;茶トラ猫をこっそり連れて帰って自室で飼っている夢を見た。擬似的な感覚を伴うタイプの夢だった。エサをあげるのを忘れていてクッキーの欠片を急いで食べさせたりしていた。&lt;/li&gt;&#xA;&lt;li&gt;そうにゃんのストラップを手に入れた。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote class=&#34;imgur-embed-pub&#34; lang=&#34;en&#34; data-id=&#34;a/UclfYWL&#34; data-context=&#34;false&#34; &gt;&lt;a href=&#34;//imgur.com/a/UclfYWL&#34;&gt;&lt;/a&gt;&lt;/blockquote&gt;&lt;script async src=&#34;//s.imgur.com/min/embed.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;バッドに入ってるときそうにゃんのことを考えると落ち着く。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.11</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-11/</link>
-      <pubDate>Fri, 12 Jun 2026 00:16:19 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-11/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;木曜日。&lt;/li&gt;&#xA;&lt;li&gt;デリダの「バベルの塔」を途中まで読書会で読んだ。&lt;/li&gt;&#xA;&lt;li&gt;デリダを読むにはどこか秘教的ですらある鍛錬が必要な気がする。これが私文力なのだろうか。&lt;/li&gt;&#xA;&lt;li&gt;留学先の寮の抽選に当たっていた。&lt;/li&gt;&#xA;&lt;li&gt;論理学の勉強をしなくては&amp;hellip;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.10</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-10/</link>
-      <pubDate>Wed, 10 Jun 2026 23:45:45 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-10/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;水曜日。&lt;/li&gt;&#xA;&lt;li&gt;寝すぎて遅れて大学に行ってそのまま帰ってきたら一日が終わってしまった。&lt;/li&gt;&#xA;&lt;li&gt;最近やっと美を意識して感じるようになってきた。&lt;/li&gt;&#xA;&lt;li&gt;弦楽器の音が好きだ。&lt;/li&gt;&#xA;&lt;li&gt;Jugendstill系の美術が好きな気もする。&lt;/li&gt;&#xA;&lt;li&gt;やはりドイツ語圏の世紀末美術が好きだ。&lt;/li&gt;&#xA;&lt;li&gt;というかフランツ・フォン・シュトゥックが好きなのだが、私にはそういう軽薄さが備わっているのだろう。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.09</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-09/</link>
-      <pubDate>Tue, 09 Jun 2026 11:41:36 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-09/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;火曜日。&lt;/li&gt;&#xA;&lt;li&gt;カウンセリングに行った。今日はいままでで一番話せた。&lt;/li&gt;&#xA;&lt;li&gt;カウンセリングに行ったすぐ後は会話の仕方が矯正されていろいろな人と問題なく喋ることができる気がする。鍼とかに行ってその日だけ筋肉が緩むのに似ている。カウンセリングが終わってすぐ後にやったゼミ合宿の手配の作業でもおどおどせずに話すことができた。&lt;/li&gt;&#xA;&lt;li&gt;bladeeの新しいアルバムをフルで聴いた。bladeeが少し前のわけのわからないマリリン・マンソンみたいなヴァンパイア系から逸れて手数の多いハイパー系になることができたことが伺えてファンとして本当に嬉しい。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;iframe data-testid=&#34;embed-iframe&#34; style=&#34;border-radius:12px&#34; src=&#34;https://open.spotify.com/embed/album/0ZegzmzVWw6wVsSeXK3OQE?utm_source=generator&#34; width=&#34;100%&#34; height=&#34;352&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;&#34; allow=&#34;autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture&#34; loading=&#34;lazy&#34;&gt;&lt;/iframe&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;このブログのためのマークダウンでダブルクオーテーションを打つと、表に出してきたときにいわゆる「間抜け引用符」になることがあるのが気になる。発生条件もよくわからない。&lt;/li&gt;&#xA;&lt;li&gt;私はこの数ヶ月のあいだラ・ロシュフコーの考えの中に閉じ込められていたが、バンジャマン・コンスタンを読むことでそこから抜け出すことができそうな気がしている。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.08</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-08/</link>
-      <pubDate>Mon, 08 Jun 2026 14:13:23 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-08/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;月曜日。曇り。少し涼しい。&lt;/li&gt;&#xA;&lt;li&gt;驚くほど無気力で文字は頭に入ってこないし、眠気がすごい。&lt;/li&gt;&#xA;&lt;li&gt;「6月病」というやつだろうか。&lt;/li&gt;&#xA;&lt;li&gt;禁酒するしかないのだろうか。昨日は二か月くらい放置していたストレスの多い作業をしたので散歩飲みしてしまった。最近は不眠と多眠を繰り返していて、「慈悲の阿片」を、という気分だ。&lt;/li&gt;&#xA;&lt;li&gt;ツヴェタン・トドロフ『バンジャマン・コンスタン : 民主主義への情熱』を読んだ。素晴らしい本だった。やっとトドロフの書くものの面白さがわかってきた。&lt;/li&gt;&#xA;&lt;li&gt;楽しいことをしようと思ってGodotとBlenderを少しさわってみている間にアイデアが降ってきてしまったのでビデオゲームをつくるのをとうぶんの間の趣味にすることにした。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.07</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-07/</link>
-      <pubDate>Sun, 07 Jun 2026 11:45:41 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-07/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;日曜日。&lt;/li&gt;&#xA;&lt;li&gt;スマホを見ていると気が狂ってしまうのでRSSフィードを設定してそれしか見ないことにした。わりと色々なiOS向けのアプリを試したが、NetNewsWireというアプリが一番良い。&lt;/li&gt;&#xA;&lt;li&gt;今日はどういうわけかとにかくぐったりしていて何もできそうにない。&lt;/li&gt;&#xA;&lt;li&gt;モスカテルはもうほとんど人生の友だと思う。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.06</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-06/</link>
-      <pubDate>Sat, 06 Jun 2026 15:50:18 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-06/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;土曜日。&lt;/li&gt;&#xA;&lt;li&gt;最近は昼過ぎまで寝てしまうのであまり多くのことができない。夕方になったら飲んでしまうのでその後はウェブを見ながら時間を無駄にしたりするだけだ。&lt;/li&gt;&#xA;&lt;li&gt;少しだけ第二言語習得論の本を読んだ。&lt;/li&gt;&#xA;&lt;li&gt;本当は専攻の勉強をしなければいけないのだが。&lt;/li&gt;&#xA;&lt;li&gt;Kenneth Goldsmithの&lt;em&gt;Wasting time on the Internet&lt;/em&gt;を読みたい気がする。&lt;/li&gt;&#xA;&lt;li&gt;私はもともと堪え性がないタイプなので、アルコールが入ってウェブを眺めてしまうと、考えがあっちへこっちへとあらぬ方向に向かっていく。最近は奇策ばかり思いつくので地に足がついているような何かしらの実感がほしい気もする。&lt;/li&gt;&#xA;&lt;li&gt;第二言語習得論に「情意フィルター仮説」というものがあるらしい。これは言語の自然で無意識な「習得」(acquition)と、意識的な「学習」(learning)を区別し、前者を重視しながらインプットによる勉強を優先する立場を前提とした仮説だが、学習者のやる気がなかったり不安が大きかったりといった要因によって「習得」は阻まれやすくなってしまうらしい。当然といえば当然だが、確かに多読指導でも、学習者がその本の内容に興味を持てているかを確認することが重要になる。学習者は必ず本音を伝えてくれるわけではないのでこういうものを読み取る能力は名人芸めいてきたりもする。&lt;/li&gt;&#xA;&lt;li&gt;私は実はドイツ語を勉強するやる気がそれほどない。私はそれほど真面目ではないので、新聞の内容などのドイツ的生真面目さにはうんざりしてしまうことも多い。英語圏の文化よりもドイツ語圏の文化の方が好きな気がするが、英語の勉強の方が世界が広がっていく感じがしてもっとスムーズにできていた気がする。&lt;/li&gt;&#xA;&lt;li&gt;インプットばかりが重要ということもない。目標言語の話者との対話を通じて、学習者の中間言語に対してじゅうぶんなエラー修正が積み重ねられると、中間言語の体系は目標言語のそれへとフォーマルな仕方で近づいていく。ここらへんは日本にいると難しいので、私はドイツ語を勉強するときにGeminiのお世話になっている。なんでもかんでも翻訳させてしまうのをやめればAIはかなり便利な語学の道具になる気がする。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.05</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-05/</link>
-      <pubDate>Fri, 05 Jun 2026 19:01:57 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-05/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;眼科に行った。待合室で国会中継が流れていて、高市早苗と日本共産党の議員の応酬が響き渡る中で患者・看護師・医者がみんなイライラしていて怖い空間だった。&lt;/li&gt;&#xA;&lt;li&gt;第二言語習得論の勉強を始めた。母語や既習言語と目標言語の間の対照分析から、「中間言語」の分析へと至る過程はデイヴィドソン的洞察にも通じるとても面白いテーマで興味が尽きない。日本語教育にも興味が出てきた。&lt;/li&gt;&#xA;&lt;li&gt;フランスのリースリングを飲んだ。酸味や果実感がシャープに現れてくるイメージ。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.04</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-04/</link>
-      <pubDate>Thu, 04 Jun 2026 16:22:53 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-04/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;髄膜炎等々のワクチンを打った。&lt;/li&gt;&#xA;&lt;li&gt;メルシーに行った。古本屋で本を買ったら包み紙に谷川俊太郎の詩が書いてあって不愉快だった。&lt;/li&gt;&#xA;&lt;li&gt;精神的に低調。自分から逃れることはできない！忌々しい。&lt;/li&gt;&#xA;&lt;li&gt;最近は形而上学の中のアリストテレス的直観に興味がある。あとエルンスト・ブロッホ。&lt;/li&gt;&#xA;&lt;li&gt;e-fluxを眺める。こういうのが日本にもあればいいのに、と思う。&lt;/li&gt;&#xA;&lt;li&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.03</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-03/</link>
-      <pubDate>Wed, 03 Jun 2026 13:04:18 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-03/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;いろいろな肩代わりをやらされすぎてヨブになった気分だ。&lt;/li&gt;&#xA;&lt;li&gt;最近は第二言語習得論に興味が出てきて、言語学の入門書を読んでいる。&lt;/li&gt;&#xA;&lt;li&gt;目移りのしやすさは気質だが、付き合い方が難しい。&lt;/li&gt;&#xA;&lt;li&gt;芸人が嫌いだ。芸人が活動するような類の界隈で作法とされているものに虫酸が走る。こういう世界に自ら進んで入ってゆく人たちの気がしれない。ウォーホルか何かを気取っているのだろうか。　&lt;/li&gt;&#xA;&lt;li&gt;何もかもが腹立たしい。こういう日はfpsゲームをやる。私は野蛮な人間だ。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.02</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-02/</link>
-      <pubDate>Tue, 02 Jun 2026 07:12:42 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-02/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;火曜日。&lt;/li&gt;&#xA;&lt;li&gt;朝気付いたこと。相対性理論の地獄先生に「ホームルームの教室で」という歌詞があるが、もしかしてアメリカとかの話なのだろうか&amp;hellip;.&lt;/li&gt;&#xA;&lt;li&gt;カウンセリングに行った。カウンセリングをめぐる制度や理論の事情について聞いてしまった。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>2026.06.01</title>
-      <link>http://localhost:1313/inhlog/diary/2026-06-01/</link>
-      <pubDate>Mon, 01 Jun 2026 12:22:52 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-06-01/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;最近は高校生の頃に興味があった話題に改めて触れようとしていて、それで技術や知財に関連する本を読んでいるのだが、同時に、当時の堪え性のない興味が再燃してきていて、Max MSPやGodotの勉強をはじめてしまった。&lt;/li&gt;&#xA;&lt;li&gt;どの分野のことでも数年あけて勉強しはじめるとこれまでわからなかったことがすんなりわかるようになっていることがあって、成長を感じる。何をやっていたということもなく、ベストキッド式に可能な成長というものがあるのだろう。特に文章を書くことについてはここ2、3年でベストキッド式成長が大きくあった気がする。&lt;/li&gt;&#xA;&lt;li&gt;就職した先輩に会った。嬉しい時間。&lt;/li&gt;&#xA;&lt;li&gt;フェリペ・アルファウの『ロコス亭』という小説がある。私はこういう世界が好きだと思う。「素敵な宿屋」から立ち去っていくのは言祝ぐべき、素晴らしいことだ。しかし、私自身はロコス亭的なものに半ば拘泥してしまうタイプな気がする。ベローチェにばかり行っているからこう思うのだろうか。&lt;/li&gt;&#xA;&lt;li&gt;本日のドイツ詩。Marie Luise Kaschnitzの&lt;em&gt;Und immer war einer&amp;hellip;&lt;/em&gt;。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Und immer war einer, der sagte:&lt;br&gt;&#xA;Die Sonne geht unter.&lt;br&gt;&#xA;Und immer war einer, der sagte:&lt;br&gt;&#xA;Fürchtet Euch nicht.&lt;br&gt;&#xA;Vom Kommenden hör ich sie flüstern,&lt;br&gt;&#xA;die ewige Stimme.&lt;br&gt;&#xA;Nicht von Machinen spricht sie,&lt;br&gt;&#xA;Nicht von Vermehrung der Ernten,&lt;br&gt;&#xA;Nicht von gewonnenem Schiffsraum.&lt;br&gt;&#xA;Zusammenklang sagt sie&lt;br&gt;&#xA;Und Würde des Menschen und Freiheit&lt;br&gt;&#xA;Hoffnung sagt sie — und Liebe&lt;br&gt;&#xA;das süßeste Wort&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>2026.05.31</title>
-      <link>http://localhost:1313/inhlog/diary/2026-05-31/</link>
-      <pubDate>Sun, 31 May 2026 14:36:05 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-05-31/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;日曜日。&lt;/li&gt;&#xA;&lt;li&gt;サークルのOB会の幹事の仕事がはじまった。&lt;/li&gt;&#xA;&lt;li&gt;幹事は死ぬほど面倒だし、とくに良い思いもしないが、OB会のような集まりはそれ自体で善なので私の労働によってそれらが生まれることは嬉しいことだと思う。&lt;/li&gt;&#xA;&lt;li&gt;リック・アンド・モーティの新シーズンがはじまった。たたみにかかっているのか引き延ばそうとしているのかわからないがともかく第一回はそういう回だった。私はリック・アンド・モーティにSFの美徳を強く感じているので、ひたすら続いてくれたらそれはそれで楽しい。&lt;/li&gt;&#xA;&lt;li&gt;モスカテルが美味しい。幸せだ。&lt;/li&gt;&#xA;&lt;li&gt;本日のドイツ詩。Bertolt Brechtの、 &lt;em&gt;Der Rauch&lt;/em&gt;。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Das kleine Haus unter Bäumen am See.&lt;br&gt;&#xA;Vom Dach steigt Rauch.&lt;br&gt;&#xA;Fehlte er&lt;br&gt;&#xA;Wie trostlos dann wären&lt;br&gt;&#xA;Haus, Bäume und See&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;「湖のほとりの、木々の下の小さな家。その屋根から煙が立ち上がっている。これを失ってしまえば。なんと救いのないことだろう。家、木々、そして湖。」といったところだろうか。ネットにある他人の解釈を見るとどうやら恋愛についての詩でもあるらしい。&amp;ldquo;trostlos&amp;quot;はなかなか一言で訳しにくい単語な気がする。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;Kurt Otto Weise hrsg. (1974) &lt;em&gt;Einfache deusche Gedichte&lt;/em&gt; (Ernst Klett Verlag : Stuttgart) p.70&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
-    </item>
-    <item>
-      <title>2026.05.30</title>
-      <link>http://localhost:1313/inhlog/diary/2026-05-30/</link>
-      <pubDate>Sat, 30 May 2026 22:09:29 +0900</pubDate>
-      <guid>http://localhost:1313/inhlog/diary/2026-05-30/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;土曜日。&lt;/li&gt;&#xA;&lt;li&gt;下北沢で飲んだ。純粋に楽しい。&lt;/li&gt;&#xA;&lt;li&gt;語学についてよく考える。機械翻訳万能論は言語共同体への参与という事態の重さを甘く見ている。私はSF者なので程度問題には慣れているから、翻訳デバイスが少し形を変えたくらいで何もかも変わるとは考えない。言語が非常に基礎的な対象であることを知らない人たちは不幸だと思う。&lt;/li&gt;&#xA;&lt;li&gt;キリスト者ではないのだが、講義関係で悪の存在からの論証に触れることが最近何度かあったからか、これまで経験した不必要な苦について考えることが多くなってしまった。&lt;/li&gt;&#xA;&lt;li&gt;嫌な思いをした経験というものを色々思い出すことはできる。それらを通じて涵養された徳もあるかもしれないし、失ってしまったり阻害されてしまったりしたものもあるだろう。私は自分の人生を安売りしてきたのだろうか。そうかもしれないが、やはりそうは考えたくない。&lt;/li&gt;&#xA;&lt;li&gt;自然体になりたいと思う。それは隠されてしまっていて、千葉雅也の「欲望年表」のようなことばかり考えてしまう。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;　だが、実際に起きているのはどんなことだろうか。言わば、人が自分の郷里に帰るときに、きれいな宿屋に泊まったが、そこが気に入ったのでその宿屋に逗留するようなものである。ねえ、君は自分の目的を忘れてしまったのだ。君はそこに旅しに来たわけではなく、むしろそこを通過していたのだ。&lt;br&gt;&#xA;　「いや、素敵な宿屋ですよ」&lt;br&gt;&#xA;　だが、素敵な宿屋はほかにどれほどあることか。素敵な牧場はほかにどれほどあることか。要するに、それらは通過するものなのだ。君の目の前にある目的は、郷里に帰り、家の人たちを安心させ、みずから市民の務めをおこなって、結婚し、子供をもうけ、公職に就くことなのだ。というのは、君が生まれ、市民として定められた場所に住むためなのだ。今の場合にも、これと同じようなことが起きている。つまり、言論とこのような教えによって、人は完成の域に到達し、みずからの意志を純粋なものにして、心像を用いる能力を正しくせねばならないのであるが、哲学理論を教えるためにはある種の表現法により、多彩で人の心を突くような言葉を伴わざるをえないので、彼らのうちのある人はその表現法によって、ある人は推論によって、ある人は転換論法によって、ある人はなにかほかのこのような宿屋によって心を捕まえられて、あたかもセイレンのところにいるように、そこに留まり朽ち果ててしまうのだ。&lt;br&gt;&#xA;　ねえ、君に課せられているのは、君自身にやってくる心像を自然本性にしたがって用いるように準備して、欲求するものを得そこなうことがないように、忌避するものを避けそこなうことがないように、けっして不幸ではなく、けっして不運でもなく、自由であり、妨げられず、強制もされず、ゼウスの支配と心を同じくして、これを信じ、これに満足し、だれをも非難することをせず、次の詩句を心の底から唱えることであった。&lt;br&gt;&#xA;　われを導きたまえ、ゼウスよ、そして汝、運命よ&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;「語る能力について」エピクテトス (2020) 『人生談義(上)』國方栄二訳 (岩波書店)&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Inhlog</title>
+		<link>http://localhost:1313/inhlog/</link>
+		<description>Recent content on Inhlog</description>
+		<generator>Hugo</generator>
+		<language>ja-jp</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 17 Jun 2026 23:15:47 +0900</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/inhlog/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Discord上のチャットをテキストファイルにする</title>
+				<link>http://localhost:1313/inhlog/writings/discordchatexporter/</link>
+				<pubDate>Wed, 17 Jun 2026 23:15:47 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/writings/discordchatexporter/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;サークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。&lt;/li&gt;&#xA;&lt;li&gt;冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。&lt;/li&gt;&#xA;&lt;li&gt;最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;discordchatexporterの導入&#34;&gt;DiscordChatExporterの導入&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;githubからDiscordChatExporterを導入する。 &lt;a href=&#34;https://github.com/tyrrrz/discordchatexporter&#34;&gt;https://github.com/tyrrrz/discordchatexporter&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Stable releaseを見ると、それぞれの環境用の.zipファイルをダウンロードできる。各アーキテクチャ向けのCLI(コマンドラインインタフェース)版リリースがたくさん並んでいるが、慣れていなければGUI(グラフィカルユーザーインターフェース)版をダウンロードするのが無難だろう。ファイル名に&amp;quot;Cli&amp;quot;と入っていないのがGUI版だ。任意の.zipをダウンロードして、解凍する。&lt;/li&gt;&#xA;&lt;li&gt;windows環境であれば解凍したフォルダの中にある&amp;quot;DiscordChatExporter.exe&amp;quot;を実行することでソフトウェアを開くことができる。GUI版を利用する場合、&lt;u&gt;mac環境では、追加の手順が必要になる。macの場合は.zipを解凍するとそのままアプリケーションが表示されるが、すぐにそれを実行することはできない。コマンドライン上で、アプリケーションがあるフォルダ内で、以下のようなコマンドを実行し、ファイルのQuarantine状態を解くことができたら、ソフトウェアが実行可能になる。&lt;/u&gt;&lt;br&gt;&#xA;&lt;code&gt; xattr -rd com.apple.quarantine 〔ダウンロード・解凍したソフトウェアの名前 e.g. DiscordChatExporter.app〕&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;discord-botの作成導入&#34;&gt;Discord Botの作成・導入&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;DiscordChatExporterは、それぞれのDiscordアカウントの「トークン」を入力することで、使用することができる。&lt;/li&gt;&#xA;&lt;li&gt;日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;[!IMPORTANT]&lt;br&gt;&#xA;Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。&lt;/li&gt;&#xA;&lt;li&gt;ボットアカウントは&lt;a href=&#34;https://discord.com/developers/applications&#34;&gt;Discord Developer Portal&lt;/a&gt;で、(英語表示ならば)&amp;ldquo;New Application&amp;quot;ボタンから作成することができる。&lt;/li&gt;&#xA;&lt;li&gt;&amp;ldquo;New Application&amp;quot;を作成したら、Developer Portalの左の欄から&amp;quot;Bot&amp;quot;を選択し、&amp;ldquo;Reset Token&amp;quot;でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。&lt;u&gt;作成時にしかトークンを確認することはできない&lt;/u&gt;ので、安全なところにメモしておく必要がある。&lt;/li&gt;&#xA;&lt;li&gt;同じ&amp;quot;Bot&amp;quot;画面で、&amp;ldquo;Privileged Gateway Intents&amp;quot;のうち、&amp;ldquo;Presence Intent&amp;rdquo;, &amp;ldquo;Server Members Intent&amp;rdquo;, &amp;ldquo;Message Content Intent&amp;quot;を全て有効化し、変更を保存する。&lt;/li&gt;&#xA;&lt;li&gt;&amp;ldquo;Bot&amp;quot;画面から&amp;quot;OAuth2&amp;quot;に移り、&amp;ldquo;URL Generator&amp;quot;をクリックする。&amp;ldquo;SCOPES&amp;quot;という一覧が出るので、&amp;ldquo;bot&amp;quot;を選択し、&amp;ldquo;BOT PERMISSION&amp;quot;の一覧から、&amp;ldquo;Read Message History&amp;quot;と&amp;quot;View Channels&amp;quot;を選択して権限を付与する。&lt;/li&gt;&#xA;&lt;li&gt;画面下に生成されるURLをブラウザで開いて、テキストファイル化したいチャンネルがあるDiscordサーバーにボットアカウントを追加する。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;discordchatexporterの実行&#34;&gt;DiscordChatExporterの実行&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;DiscordChatExporterを起動し、メモしておいたボットアカウントのトークンを入力する。&lt;/li&gt;&#xA;&lt;li&gt;ボットが参加しているサーバーが表示されるので、任意のサーバー、サーバー内のチャンネルを選択し、ファイルの出力先と出力形式を選択して実行する。ここで、GUI版であれば&amp;quot;More&amp;quot;のボタンから、出力するチャットを時期によって限定したり、任意の単語を含むチャットだけを指定したりすることもできる。&lt;u&gt; なお、取り込みたいチャットがあるチャンネルを閲覧できるロールが、サーバー内で指定されている場合、ボットアカウントにもそのロールを付与しないとチャットを取り込むことはできない。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://discord.com/guidelines&#34;&gt;https://discord.com/guidelines&lt;/a&gt; 第14項。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.17</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-17/</link>
+				<pubDate>Wed, 17 Jun 2026 18:13:03 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-17/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;水曜日。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;大学にいる人がなぜかとても少なくて、ついぞ誰とも話さずに帰ってきてしまった。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;ndlocr-liteについていまさら知って少し試してみた。すこし試してみた程度だが、スキャナーで作ったpdfにかけると意外と誤認識が多く、手書きのメモなどにかけるとかなり正確に認識されるような気がする。&lt;br&gt;&#xA;&lt;a href=&#34;https://github.com/ndl-lab/ndlocr-lite/releases&#34;&gt;https://github.com/ndl-lab/ndlocr-lite/releases&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;スキャナーで作ったpdfに対してのOCRに関してはacrobatの日本語OCRの方が精度がまだ高い気がしてしまったが、私の使い方の問題だろうか。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;また就職した先輩と会った。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.16</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-16/</link>
+				<pubDate>Wed, 17 Jun 2026 00:26:37 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-16/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;火曜日。&lt;/li&gt;&#xA;&lt;li&gt;fpsゲームのはなしができて満足。&lt;/li&gt;&#xA;&lt;li&gt;コロナがあったこともあって私にとってfpsゲームは青春だ。&lt;/li&gt;&#xA;&lt;li&gt;今日はカウンセリングで理論についてめちゃくちゃ聞いてしまった。&lt;/li&gt;&#xA;&lt;li&gt;こんな客がいたらたまったものじゃないだろう。&lt;/li&gt;&#xA;&lt;li&gt;なぜかはわからないが二郎が食べたすぎる。&lt;/li&gt;&#xA;&lt;li&gt;メルシーも食べたい。&lt;/li&gt;&#xA;&lt;li&gt;蝦夷菊はいいや。&lt;/li&gt;&#xA;&lt;li&gt;メルシーか二郎食べたいーーー。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.15</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-15/</link>
+				<pubDate>Mon, 15 Jun 2026 14:24:17 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-15/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;月曜日。&lt;/li&gt;&#xA;&lt;li&gt;リック・アンド・モーティと上伊那ぼたんの最新話を見た。上伊那ぼたんは私文力と相性が悪い。　&lt;/li&gt;&#xA;&lt;li&gt;最近小説が読めない。&lt;/li&gt;&#xA;&lt;li&gt;多読多聴という語学の方法自体は若干時代がかっているが、少なくとも私にはとても相性が良いので、ドイツ語の勉強でもそのようにできたらと考えている。が、日本で手に入るドイツ語のGraded Readerはフランス語やスペイン語のようなロマンス諸語と比べて有意に少ないように思う。駒場の河野書店で手に入れたrororo-Bildmonographienを何冊か持っているくらいだが、正直言ってこのシリーズは私の「i + 1」をはるかに超えている。それに、そもそもこれはGRではない。&lt;/li&gt;&#xA;&lt;li&gt;反対に、少なくとも東京でフランス語を多読多聴によって勉強するのは相対的に容易いと思う。&lt;/li&gt;&#xA;&lt;li&gt;GRを新刊書で買うことは、紙の本にせよ、電子書籍にせよ、単純に予算の問題からほとんどの学習者にとって選択肢ではない。例えばrororoも電子書籍で一冊10ユーロする。明らかに何度も読むものにはなりえないし、2000円あったらもっと他の本を買いたいというのが道理だ。&lt;/li&gt;&#xA;&lt;li&gt;語学は難しい。私はクラシェンが理論化したものにかなり納得しているのだが、「i + 1のインプット」を学習の途上で、情意フィルターによって妨げられることなく続けることには相当な工夫が必要だと思う。というのも、「i + 1」で触れることができるものは、私が母語で触れることができるものに比べたら、圧倒的につまらないに決まっているのだ。&lt;/li&gt;&#xA;&lt;li&gt;そういえば地元の図書館でいつまで経っても山形浩生の『翻訳者の全技術』が借りられなかったが、有名なYoutubeチャンネルで紹介されていたらしい。人を馬鹿にした不愉快なサムネイルの動画だった。&lt;/li&gt;&#xA;&lt;li&gt;私は人の顔を見て話すことが苦手なので、私にとって人間の顔を一番よく観察する機会は、Youtubeの動画のサムネイルを眺めることだと思う。反対色のライティングに照らしだされた顔、コントラストを上げすぎてほとんど月みたいにボコボコに見える顔、端的に不愉快な変顔。これらが現代に特有の顔のイメージな気がする。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.14</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-14/</link>
+				<pubDate>Sun, 14 Jun 2026 11:52:09 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-14/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;日曜日。&lt;/li&gt;&#xA;&lt;li&gt;私は渋谷によく行くし、わけのわからない学部の所属だが、遅かれ早かれ東京はどこも渋谷のようになるだろうし、大学も実学志向・学際化を目指してその質を損なっていくだろう。そういう現状に人一倍詳しいという自負があるが、こういうことを気にする人は実はそんなに多くない気もする。&lt;/li&gt;&#xA;&lt;li&gt;週末に何もできないのはよくない。ベローチェ以外に行くところがないのが苦しい。ベローチェには喫煙ボックスと飲み物とトイレしかないが、たしかに私の生活はこの3つのリズムでできている気がする。&lt;/li&gt;&#xA;&lt;li&gt;ホムラヒロシが嫌いだ。顔が嫌だしエッセイも気持ち悪い。高校のときに散々読まされたが、そのときは男子校的なものの悪徳だと思っていたので、これほど流行っているとは知らなかった。気色の悪いメガネをかけるような奴らは信用できない。&lt;/li&gt;&#xA;&lt;li&gt;スピノザが面白い。私は自分が男性であることに美的に納得がいっていないタイプなので自己啓発のような響きをもって入ってくる。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.13</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-13/</link>
+				<pubDate>Sat, 13 Jun 2026 14:36:22 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-13/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;土曜日。&lt;/li&gt;&#xA;&lt;li&gt;ベローチェが混んでいて変な席にしか座れず、本が頭に入ってこない。&lt;/li&gt;&#xA;&lt;li&gt;宇野邦一の『ドゥルーズ : 群れと結晶』を読んだ。廣瀬純がどこかで日本語でドゥルーズに入門するために最初の本として最良なのはいまだにこの本だと言っているのを見た気がしたので手に取ったが、あまりしっかり理解できたとは言いがたい。&lt;/li&gt;&#xA;&lt;li&gt;スピノザ由来の並行論に関連する箇所はわかる気がするが、ドゥルーズ独特の文学者や哲学者への言及の目論見や、独特の述語がまだよくわからない。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;〔&amp;hellip;〕こうした「存在への問い」を意識し、自らの課題とするような人間は実際にはわずかであろう。ところが、実はほぼすべての人間には無意識的に――すなわち日常的に、つまり前-哲学的に――有している「存在」についての或る領域の仕方と評価の仕方があり、それが哲学における存在論として概念化され言語化され体系化されてきたのである。つまり、これによって存在論は、価値論と不可分になるのである&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;江川隆男 (2025)『哲学は何ではないのか : 差異のエチカ』(筑摩書房)&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.12</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-12/</link>
+				<pubDate>Fri, 12 Jun 2026 12:50:51 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-12/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;金曜日。&lt;/li&gt;&#xA;&lt;li&gt;アルコールが残り気味。たぶん胃が弱いので発泡酒を飲むのを控えよう&amp;hellip;&lt;/li&gt;&#xA;&lt;li&gt;茶トラ猫をこっそり連れて帰って自室で飼っている夢を見た。擬似的な感覚を伴うタイプの夢だった。エサをあげるのを忘れていてクッキーの欠片を急いで食べさせたりしていた。&lt;/li&gt;&#xA;&lt;li&gt;そうにゃんのストラップを手に入れた。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote class=&#34;imgur-embed-pub&#34; lang=&#34;en&#34; data-id=&#34;a/UclfYWL&#34; data-context=&#34;false&#34; &gt;&lt;a href=&#34;//imgur.com/a/UclfYWL&#34;&gt;&lt;/a&gt;&lt;/blockquote&gt;&lt;script async src=&#34;//s.imgur.com/min/embed.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;バッドに入ってるときそうにゃんのことを考えると落ち着く。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.11</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-11/</link>
+				<pubDate>Fri, 12 Jun 2026 00:16:19 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-11/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;木曜日。&lt;/li&gt;&#xA;&lt;li&gt;デリダの「バベルの塔」を途中まで読書会で読んだ。&lt;/li&gt;&#xA;&lt;li&gt;デリダを読むにはどこか秘教的ですらある鍛錬が必要な気がする。これが私文力なのだろうか。&lt;/li&gt;&#xA;&lt;li&gt;留学先の寮の抽選に当たっていた。&lt;/li&gt;&#xA;&lt;li&gt;論理学の勉強をしなくては&amp;hellip;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.10</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-10/</link>
+				<pubDate>Wed, 10 Jun 2026 23:45:45 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-10/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;水曜日。&lt;/li&gt;&#xA;&lt;li&gt;寝すぎて遅れて大学に行ってそのまま帰ってきたら一日が終わってしまった。&lt;/li&gt;&#xA;&lt;li&gt;最近やっと美を意識して感じるようになってきた。&lt;/li&gt;&#xA;&lt;li&gt;弦楽器の音が好きだ。&lt;/li&gt;&#xA;&lt;li&gt;Jugendstill系の美術が好きな気もする。&lt;/li&gt;&#xA;&lt;li&gt;やはりドイツ語圏の世紀末美術が好きだ。&lt;/li&gt;&#xA;&lt;li&gt;というかフランツ・フォン・シュトゥックが好きなのだが、私にはそういう軽薄さが備わっているのだろう。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.09</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-09/</link>
+				<pubDate>Tue, 09 Jun 2026 11:41:36 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-09/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;火曜日。&lt;/li&gt;&#xA;&lt;li&gt;カウンセリングに行った。今日はいままでで一番話せた。&lt;/li&gt;&#xA;&lt;li&gt;カウンセリングに行ったすぐ後は会話の仕方が矯正されていろいろな人と問題なく喋ることができる気がする。鍼とかに行ってその日だけ筋肉が緩むのに似ている。カウンセリングが終わってすぐ後にやったゼミ合宿の手配の作業でもおどおどせずに話すことができた。&lt;/li&gt;&#xA;&lt;li&gt;bladeeの新しいアルバムをフルで聴いた。bladeeが少し前のわけのわからないマリリン・マンソンみたいなヴァンパイア系から逸れて手数の多いハイパー系になることができたことが伺えてファンとして本当に嬉しい。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;iframe data-testid=&#34;embed-iframe&#34; style=&#34;border-radius:12px&#34; src=&#34;https://open.spotify.com/embed/album/0ZegzmzVWw6wVsSeXK3OQE?utm_source=generator&#34; width=&#34;100%&#34; height=&#34;352&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;&#34; allow=&#34;autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture&#34; loading=&#34;lazy&#34;&gt;&lt;/iframe&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;このブログのためのマークダウンでダブルクオーテーションを打つと、表に出してきたときにいわゆる「間抜け引用符」になることがあるのが気になる。発生条件もよくわからない。&lt;/li&gt;&#xA;&lt;li&gt;私はこの数ヶ月のあいだラ・ロシュフコーの考えの中に閉じ込められていたが、バンジャマン・コンスタンを読むことでそこから抜け出すことができそうな気がしている。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.08</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-08/</link>
+				<pubDate>Mon, 08 Jun 2026 14:13:23 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-08/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;月曜日。曇り。少し涼しい。&lt;/li&gt;&#xA;&lt;li&gt;驚くほど無気力で文字は頭に入ってこないし、眠気がすごい。&lt;/li&gt;&#xA;&lt;li&gt;「6月病」というやつだろうか。&lt;/li&gt;&#xA;&lt;li&gt;禁酒するしかないのだろうか。昨日は二か月くらい放置していたストレスの多い作業をしたので散歩飲みしてしまった。最近は不眠と多眠を繰り返していて、「慈悲の阿片」を、という気分だ。&lt;/li&gt;&#xA;&lt;li&gt;ツヴェタン・トドロフ『バンジャマン・コンスタン : 民主主義への情熱』を読んだ。素晴らしい本だった。やっとトドロフの書くものの面白さがわかってきた。&lt;/li&gt;&#xA;&lt;li&gt;楽しいことをしようと思ってGodotとBlenderを少しさわってみている間にアイデアが降ってきてしまったのでビデオゲームをつくるのをとうぶんの間の趣味にすることにした。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.07</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-07/</link>
+				<pubDate>Sun, 07 Jun 2026 11:45:41 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-07/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;日曜日。&lt;/li&gt;&#xA;&lt;li&gt;スマホを見ていると気が狂ってしまうのでRSSフィードを設定してそれしか見ないことにした。わりと色々なiOS向けのアプリを試したが、NetNewsWireというアプリが一番良い。&lt;/li&gt;&#xA;&lt;li&gt;今日はどういうわけかとにかくぐったりしていて何もできそうにない。&lt;/li&gt;&#xA;&lt;li&gt;モスカテルはもうほとんど人生の友だと思う。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.06</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-06/</link>
+				<pubDate>Sat, 06 Jun 2026 15:50:18 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-06/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;土曜日。&lt;/li&gt;&#xA;&lt;li&gt;最近は昼過ぎまで寝てしまうのであまり多くのことができない。夕方になったら飲んでしまうのでその後はウェブを見ながら時間を無駄にしたりするだけだ。&lt;/li&gt;&#xA;&lt;li&gt;少しだけ第二言語習得論の本を読んだ。&lt;/li&gt;&#xA;&lt;li&gt;本当は専攻の勉強をしなければいけないのだが。&lt;/li&gt;&#xA;&lt;li&gt;Kenneth Goldsmithの&lt;em&gt;Wasting time on the Internet&lt;/em&gt;を読みたい気がする。&lt;/li&gt;&#xA;&lt;li&gt;私はもともと堪え性がないタイプなので、アルコールが入ってウェブを眺めてしまうと、考えがあっちへこっちへとあらぬ方向に向かっていく。最近は奇策ばかり思いつくので地に足がついているような何かしらの実感がほしい気もする。&lt;/li&gt;&#xA;&lt;li&gt;第二言語習得論に「情意フィルター仮説」というものがあるらしい。これは言語の自然で無意識な「習得」(acquition)と、意識的な「学習」(learning)を区別し、前者を重視しながらインプットによる勉強を優先する立場を前提とした仮説だが、学習者のやる気がなかったり不安が大きかったりといった要因によって「習得」は阻まれやすくなってしまうらしい。当然といえば当然だが、確かに多読指導でも、学習者がその本の内容に興味を持てているかを確認することが重要になる。学習者は必ず本音を伝えてくれるわけではないのでこういうものを読み取る能力は名人芸めいてきたりもする。&lt;/li&gt;&#xA;&lt;li&gt;私は実はドイツ語を勉強するやる気がそれほどない。私はそれほど真面目ではないので、新聞の内容などのドイツ的生真面目さにはうんざりしてしまうことも多い。英語圏の文化よりもドイツ語圏の文化の方が好きな気がするが、英語の勉強の方が世界が広がっていく感じがしてもっとスムーズにできていた気がする。&lt;/li&gt;&#xA;&lt;li&gt;インプットばかりが重要ということもない。目標言語の話者との対話を通じて、学習者の中間言語に対してじゅうぶんなエラー修正が積み重ねられると、中間言語の体系は目標言語のそれへとフォーマルな仕方で近づいていく。ここらへんは日本にいると難しいので、私はドイツ語を勉強するときにGeminiのお世話になっている。なんでもかんでも翻訳させてしまうのをやめればAIはかなり便利な語学の道具になる気がする。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.05</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-05/</link>
+				<pubDate>Fri, 05 Jun 2026 19:01:57 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-05/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;眼科に行った。待合室で国会中継が流れていて、高市早苗と日本共産党の議員の応酬が響き渡る中で患者・看護師・医者がみんなイライラしていて怖い空間だった。&lt;/li&gt;&#xA;&lt;li&gt;第二言語習得論の勉強を始めた。母語や既習言語と目標言語の間の対照分析から、「中間言語」の分析へと至る過程はデイヴィドソン的洞察にも通じるとても面白いテーマで興味が尽きない。日本語教育にも興味が出てきた。&lt;/li&gt;&#xA;&lt;li&gt;フランスのリースリングを飲んだ。酸味や果実感がシャープに現れてくるイメージ。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.04</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-04/</link>
+				<pubDate>Thu, 04 Jun 2026 16:22:53 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-04/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;髄膜炎等々のワクチンを打った。&lt;/li&gt;&#xA;&lt;li&gt;メルシーに行った。古本屋で本を買ったら包み紙に谷川俊太郎の詩が書いてあって不愉快だった。&lt;/li&gt;&#xA;&lt;li&gt;精神的に低調。自分から逃れることはできない！忌々しい。&lt;/li&gt;&#xA;&lt;li&gt;最近は形而上学の中のアリストテレス的直観に興味がある。あとエルンスト・ブロッホ。&lt;/li&gt;&#xA;&lt;li&gt;e-fluxを眺める。こういうのが日本にもあればいいのに、と思う。&lt;/li&gt;&#xA;&lt;li&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.03</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-03/</link>
+				<pubDate>Wed, 03 Jun 2026 13:04:18 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-03/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;いろいろな肩代わりをやらされすぎてヨブになった気分だ。&lt;/li&gt;&#xA;&lt;li&gt;最近は第二言語習得論に興味が出てきて、言語学の入門書を読んでいる。&lt;/li&gt;&#xA;&lt;li&gt;目移りのしやすさは気質だが、付き合い方が難しい。&lt;/li&gt;&#xA;&lt;li&gt;芸人が嫌いだ。芸人が活動するような類の界隈で作法とされているものに虫酸が走る。こういう世界に自ら進んで入ってゆく人たちの気がしれない。ウォーホルか何かを気取っているのだろうか。　&lt;/li&gt;&#xA;&lt;li&gt;何もかもが腹立たしい。こういう日はfpsゲームをやる。私は野蛮な人間だ。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.02</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-02/</link>
+				<pubDate>Tue, 02 Jun 2026 07:12:42 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-02/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;火曜日。&lt;/li&gt;&#xA;&lt;li&gt;朝気付いたこと。相対性理論の地獄先生に「ホームルームの教室で」という歌詞があるが、もしかしてアメリカとかの話なのだろうか&amp;hellip;.&lt;/li&gt;&#xA;&lt;li&gt;カウンセリングに行った。カウンセリングをめぐる制度や理論の事情について聞いてしまった。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>2026.06.01</title>
+				<link>http://localhost:1313/inhlog/diary/2026-06-01/</link>
+				<pubDate>Mon, 01 Jun 2026 12:22:52 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-06-01/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;最近は高校生の頃に興味があった話題に改めて触れようとしていて、それで技術や知財に関連する本を読んでいるのだが、同時に、当時の堪え性のない興味が再燃してきていて、Max MSPやGodotの勉強をはじめてしまった。&lt;/li&gt;&#xA;&lt;li&gt;どの分野のことでも数年あけて勉強しはじめるとこれまでわからなかったことがすんなりわかるようになっていることがあって、成長を感じる。何をやっていたということもなく、ベストキッド式に可能な成長というものがあるのだろう。特に文章を書くことについてはここ2、3年でベストキッド式成長が大きくあった気がする。&lt;/li&gt;&#xA;&lt;li&gt;就職した先輩に会った。嬉しい時間。&lt;/li&gt;&#xA;&lt;li&gt;フェリペ・アルファウの『ロコス亭』という小説がある。私はこういう世界が好きだと思う。「素敵な宿屋」から立ち去っていくのは言祝ぐべき、素晴らしいことだ。しかし、私自身はロコス亭的なものに半ば拘泥してしまうタイプな気がする。ベローチェにばかり行っているからこう思うのだろうか。&lt;/li&gt;&#xA;&lt;li&gt;本日のドイツ詩。Marie Luise Kaschnitzの&lt;em&gt;Und immer war einer&amp;hellip;&lt;/em&gt;。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Und immer war einer, der sagte:&lt;br&gt;&#xA;Die Sonne geht unter.&lt;br&gt;&#xA;Und immer war einer, der sagte:&lt;br&gt;&#xA;Fürchtet Euch nicht.&lt;br&gt;&#xA;Vom Kommenden hör ich sie flüstern,&lt;br&gt;&#xA;die ewige Stimme.&lt;br&gt;&#xA;Nicht von Machinen spricht sie,&lt;br&gt;&#xA;Nicht von Vermehrung der Ernten,&lt;br&gt;&#xA;Nicht von gewonnenem Schiffsraum.&lt;br&gt;&#xA;Zusammenklang sagt sie&lt;br&gt;&#xA;Und Würde des Menschen und Freiheit&lt;br&gt;&#xA;Hoffnung sagt sie — und Liebe&lt;br&gt;&#xA;das süßeste Wort&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>2026.05.31</title>
+				<link>http://localhost:1313/inhlog/diary/2026-05-31/</link>
+				<pubDate>Sun, 31 May 2026 14:36:05 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-05-31/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;日曜日。&lt;/li&gt;&#xA;&lt;li&gt;サークルのOB会の幹事の仕事がはじまった。&lt;/li&gt;&#xA;&lt;li&gt;幹事は死ぬほど面倒だし、とくに良い思いもしないが、OB会のような集まりはそれ自体で善なので私の労働によってそれらが生まれることは嬉しいことだと思う。&lt;/li&gt;&#xA;&lt;li&gt;リック・アンド・モーティの新シーズンがはじまった。たたみにかかっているのか引き延ばそうとしているのかわからないがともかく第一回はそういう回だった。私はリック・アンド・モーティにSFの美徳を強く感じているので、ひたすら続いてくれたらそれはそれで楽しい。&lt;/li&gt;&#xA;&lt;li&gt;モスカテルが美味しい。幸せだ。&lt;/li&gt;&#xA;&lt;li&gt;本日のドイツ詩。Bertolt Brechtの、 &lt;em&gt;Der Rauch&lt;/em&gt;。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Das kleine Haus unter Bäumen am See.&lt;br&gt;&#xA;Vom Dach steigt Rauch.&lt;br&gt;&#xA;Fehlte er&lt;br&gt;&#xA;Wie trostlos dann wären&lt;br&gt;&#xA;Haus, Bäume und See&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;「湖のほとりの、木々の下の小さな家。その屋根から煙が立ち上がっている。これを失ってしまえば。なんと救いのないことだろう。家、木々、そして湖。」といったところだろうか。ネットにある他人の解釈を見るとどうやら恋愛についての詩でもあるらしい。&amp;ldquo;trostlos&amp;quot;はなかなか一言で訳しにくい単語な気がする。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;Kurt Otto Weise hrsg. (1974) &lt;em&gt;Einfache deusche Gedichte&lt;/em&gt; (Ernst Klett Verlag : Stuttgart) p.70&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
+			</item>
+			<item>
+				<title>2026.05.30</title>
+				<link>http://localhost:1313/inhlog/diary/2026-05-30/</link>
+				<pubDate>Sat, 30 May 2026 22:09:29 +0900</pubDate>
+				<guid>http://localhost:1313/inhlog/diary/2026-05-30/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;土曜日。&lt;/li&gt;&#xA;&lt;li&gt;下北沢で飲んだ。純粋に楽しい。&lt;/li&gt;&#xA;&lt;li&gt;語学についてよく考える。機械翻訳万能論は言語共同体への参与という事態の重さを甘く見ている。私はSF者なので程度問題には慣れているから、翻訳デバイスが少し形を変えたくらいで何もかも変わるとは考えない。言語が非常に基礎的な対象であることを知らない人たちは不幸だと思う。&lt;/li&gt;&#xA;&lt;li&gt;キリスト者ではないのだが、講義関係で悪の存在からの論証に触れることが最近何度かあったからか、これまで経験した不必要な苦について考えることが多くなってしまった。&lt;/li&gt;&#xA;&lt;li&gt;嫌な思いをした経験というものを色々思い出すことはできる。それらを通じて涵養された徳もあるかもしれないし、失ってしまったり阻害されてしまったりしたものもあるだろう。私は自分の人生を安売りしてきたのだろうか。そうかもしれないが、やはりそうは考えたくない。&lt;/li&gt;&#xA;&lt;li&gt;自然体になりたいと思う。それは隠されてしまっていて、千葉雅也の「欲望年表」のようなことばかり考えてしまう。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;　だが、実際に起きているのはどんなことだろうか。言わば、人が自分の郷里に帰るときに、きれいな宿屋に泊まったが、そこが気に入ったのでその宿屋に逗留するようなものである。ねえ、君は自分の目的を忘れてしまったのだ。君はそこに旅しに来たわけではなく、むしろそこを通過していたのだ。&lt;br&gt;&#xA;　「いや、素敵な宿屋ですよ」&lt;br&gt;&#xA;　だが、素敵な宿屋はほかにどれほどあることか。素敵な牧場はほかにどれほどあることか。要するに、それらは通過するものなのだ。君の目の前にある目的は、郷里に帰り、家の人たちを安心させ、みずから市民の務めをおこなって、結婚し、子供をもうけ、公職に就くことなのだ。というのは、君が生まれ、市民として定められた場所に住むためなのだ。今の場合にも、これと同じようなことが起きている。つまり、言論とこのような教えによって、人は完成の域に到達し、みずからの意志を純粋なものにして、心像を用いる能力を正しくせねばならないのであるが、哲学理論を教えるためにはある種の表現法により、多彩で人の心を突くような言葉を伴わざるをえないので、彼らのうちのある人はその表現法によって、ある人は推論によって、ある人は転換論法によって、ある人はなにかほかのこのような宿屋によって心を捕まえられて、あたかもセイレンのところにいるように、そこに留まり朽ち果ててしまうのだ。&lt;br&gt;&#xA;　ねえ、君に課せられているのは、君自身にやってくる心像を自然本性にしたがって用いるように準備して、欲求するものを得そこなうことがないように、忌避するものを避けそこなうことがないように、けっして不幸ではなく、けっして不運でもなく、自由であり、妨げられず、強制もされず、ゼウスの支配と心を同じくして、これを信じ、これに満足し、だれをも非難することをせず、次の詩句を心の底から唱えることであった。&lt;br&gt;&#xA;　われを導きたまえ、ゼウスよ、そして汝、運命よ&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;「語る能力について」エピクテトス (2020) 『人生談義(上)』國方栄二訳 (岩波書店)&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;</description>
+			</item>
+	</channel>
 </rss>
