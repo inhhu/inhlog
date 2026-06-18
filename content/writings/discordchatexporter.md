@@ -15,6 +15,9 @@ url: ""
 categories: [備忘録]
 tags: []
 ---
+![image-title](https://collectionapi.metmuseum.org/api/collection/v1/iiif/290386/615440/main-image)
+<small>（Roger Fenton, *Photographic Facsimiles of the Remains of the Epistles of Clement of Rome. Made from the Unique Copy Preserved in the Codex Alexandrinus.*, 1856, Lisence: Open Access）</small>
+
 - サークルの仕事で、Discord上に記録されたサークルの活動記録を、OB・OG向けの冊子に載せる作業をする必要があった。
 - 冊子の作成にはIndesignを使うことになるので、Discordに残っている活動記録はテキストファイルで扱えるのが一番便利だ。しかし、手作業でコピペを繰り返すのは骨が折れる。
 - 最終的にDiscordChatExporterというオープンソースのソフトウェアを使ってこの作業をかなり楽に行うことができた。日本語でもこのソフトの使い方についての情報はかなりたくさんあるのだが、自分のための備忘録として、ここにいくつかの注意点を残しておく。
