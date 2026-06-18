@@ -79,6 +79,10 @@
 <link rel="preload" href="{{ "fonts/jetbrains-mono-regular.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 {{ end }}
 
+
+{{ template "_internal/opengraph.html" . }}
+{{ template "_internal/twitter_cards.html" . }}
+
 <!-- CSS -->
 {{ $cssOptions := (dict "targetPath" "css/style.css" "outputStyle" "compressed") }}
 {{ with resources.Get "css/main.scss" }}
@@ -148,3 +152,4 @@
     --link-hover-color: #555555 !important;
   }
 </style>
+
