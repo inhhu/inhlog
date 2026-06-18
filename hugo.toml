@@ -68,7 +68,8 @@ services.rss.limit = 20
     url = "/contact/"
     weight = 40
 
-
-[markup.goldmark.renderer]
-  hardWraps = true    
-  unsafe = true
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      hardWraps = true    
+      unsafe = true
