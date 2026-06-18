@@ -3,7 +3,8 @@ title: "Discord上のチャットをテキストファイルにする"
 date: 2026-06-17T23:15:47+09:00
 draft: false
 
-images: ["https://collectionapi.metmuseum.org/api/collection/v1/iiif/290386/615440/main-image"]
+images: 
+- "https://collectionapi.metmuseum.org/api/collection/v1/iiif/290386/615440/main-image"
 
 # Aphelis流 出典項目
 author: ""
