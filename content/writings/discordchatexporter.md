@@ -32,7 +32,7 @@ tags: []
 - 日本語で見つけることができるこのソフトウェアの使用法についての記事では、ブラウザでDiscordにログインし、ブラウザのデベロッパーツールを使うことで、自分のアカウントのトークンを特定する方法が紹介されているが、この方法を避けるべき理由がある。
 - <u> Discordはユーザー規約で、アカウントをプログラムで自動操作することを禁じている[^1]。自分のトークンを使う方法はしたがって、ユーザー規約に抵触しているため、アカウントの一時停止や永久BANのリスクをはらんでいる。実際にこの方法に沿って作業をしてBANをされたケースがあるのかは知らないが、ラクをするための作業で無駄なリスクを負ってしまうことは避けるのが無難だろう。 </u>
 - 代替策として、Discordが提供するサービスの範囲内で、ボットアカウントを作成し、自分が普段使っているアカウントのトークンではなく、ボットアカウントに発行されたそれを使ってDiscordChatExporterを利用するという方法がある。
-- ボットアカウントはDiscord Developer Portal(https://discord.com/developers/applications)で、(英語表示ならば)"New Application"ボタンから作成することができる。
+- ボットアカウントは[Discord Developer Portal](https://discord.com/developers/applications)で、(英語表示ならば)"New Application"ボタンから作成することができる。
 - "New Application"を作成したら、Developer Portalの左の欄から"Bot"を選択し、"Reset Token"でトークンのリセットを行う。ここでボットアカウントに発行されるトークンを確認することができる。作成時にしかトークンを確認することはできないので、安全なところにメモしておく必要がある。
 - 同じ"Bot"画面で、"Privileged Gateway Intents"のうち、"Presence Intent", "Server Members Intent", "Message Content Intent"を全て有効化し、変更を保存する。
 - "Bot"画面から"OAuth2"に移り、"URL Generator"をクリックする。"SCOPES"という一覧が出るので、"bot"を選択し、"BOT PERMISSION"の一覧から、"Read Message History"と"View Channels"を選択して権限を付与する。
