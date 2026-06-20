@@ -79,3 +79,6 @@ theme = "explore"
     limit = 20 # RSSに載せる最大記事数
 [rss]
   fullContent = true
+
+[minify]
+  disableXML = true # ★XML（RSS）の圧縮を無効化する  
