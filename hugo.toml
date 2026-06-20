@@ -6,7 +6,7 @@ locale = "ja-jp"
     #direction = "ltr"  # Left to Right
 title = "Inhlog"
 theme = "explore"
-services.rss.limit = 20  
+
 
 [outputs]
   home = ["HTML", "RSS", "JSON","Sitemap"]
@@ -73,3 +73,9 @@ services.rss.limit = 20
     [markup.goldmark.renderer]
       hardWraps = true    
       unsafe = true
+
+[services]
+  [services.rss]
+    limit = 15 # RSSに載せる最大記事数（お好みで）
+[rss]
+  fullContent = true
