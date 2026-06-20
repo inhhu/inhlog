@@ -76,6 +76,6 @@ theme = "explore"
 
 [services]
   [services.rss]
-    limit = 15 # RSSに載せる最大記事数（お好みで）
+    limit = 20 # RSSに載せる最大記事数
 [rss]
   fullContent = true
