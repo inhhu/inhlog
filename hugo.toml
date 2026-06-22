@@ -48,14 +48,14 @@ theme = "explore"
 # --- メニュー設定 ---
 [menu]
   [[menu.main]]
-    identifier = "writings"
-    name = "Writings"
-    url = "/writings/"
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
     weight = 10
   [[menu.main]]
-    identifier = "diary"
-    name = "Diary"
-    url = "/diary/"
+    identifier = "journal"
+    name = "Journal"
+    url = "/journal/"
     weight = 20 
   [[menu.main]]
     identifier = "about"
