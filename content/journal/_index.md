@@ -1,5 +1,5 @@
 ---
-title: "Diary"
+title: "Journal"
 layout: "list"
 build:
     list: local

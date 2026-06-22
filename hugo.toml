@@ -20,7 +20,7 @@ theme = "explore"
   description = "A personal digital archive."
   tagline = ""
   rssFullContent = true
-  mainSections = ["writings"] # 念のための二重定義
+  mainSections = ["posts"] # 念のための二重定義
 
 # --- スタイル設定 ---
   [params.style]
@@ -43,7 +43,7 @@ theme = "explore"
     showExcerpt = false
     showSectionBadge = false
     # 書き換え：この階層に含めることで確実に認識させます
-    mainSections = ["writings"] 
+    mainSections = ["posts"] 
 
 # --- メニュー設定 ---
 [menu]
